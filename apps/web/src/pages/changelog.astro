@@ -1,0 +1,132 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../layouts/Base.astro";
+import "../styles/global.css";
+
+const entries = (await getCollection("changelog")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const rendered = await Promise.all(
+  entries.map(async (e) => ({ ...e, Content: (await render(e)).Content }))
+);
+---
+
+<Base
+  title="changelog · weed"
+  description="野草的更新日志：设计语言、组件与站点。RSS: /changelog.xml"
+>
+  <header class="page-head">
+    <p class="w-eyebrow">changelog / log</p>
+    <h1 class="page-title">更新日志</h1>
+    <p class="page-sub">
+      <a href="/changelog.xml">changelog.xml ↗</a> — 订阅源在那儿。
+    </p>
+  </header>
+
+  {
+    rendered.map((entry, i) => (
+      <article class="entry" id={entry.id}>
+        <div class="w-bar">
+          <span class="w-bar__dots">
+            <i class="w-bar__dot w-bar__dot--on" />
+          </span>
+          <span class="w-bar__label">v{i === 0 ? "latest" : entry.id}</span>
+          <time
+            class="w-bar__label w-bar__label--date"
+            datetime={entry.data.date.toISOString()}
+          >
+            {entry.data.date.toISOString().slice(0, 10)}
+          </time>
+        </div>
+        <div class="entry-body">
+          <h2 class="entry-title">{entry.data.title}</h2>
+          <entry.Content />
+        </div>
+      </article>
+    ))
+  }
+</Base>
+
+<style>
+  .page-head {
+    margin-bottom: 36px;
+  }
+  .page-title {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-2xl);
+    font-weight: 400;
+    margin: 10px 0 12px;
+  }
+  .page-sub {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+    margin: 0;
+  }
+  .page-sub a {
+    color: var(--primary);
+  }
+  .entry {
+    margin-bottom: 20px;
+    border-radius: var(--w-radius);
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .w-bar__label--date {
+    margin-left: auto;
+    color: var(--muted-foreground);
+  }
+  .entry-body {
+    padding: 18px 20px 20px;
+    background: var(--panel);
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-sm);
+    line-height: var(--w-leading-prose);
+    color: var(--muted-foreground);
+  }
+  .entry-title {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-lg);
+    font-weight: 400;
+    color: var(--foreground);
+    margin: 0 0 12px;
+  }
+  .entry-body :global(ul) {
+    margin: 0;
+    padding-left: 1.2em;
+  }
+  .entry-body :global(li) {
+    margin-bottom: 6px;
+  }
+  .entry-body :global(li)::marker {
+    color: var(--primary);
+  }
+  .entry-body :global(strong) {
+    color: var(--foreground);
+    font-weight: 400;
+  }
+  .entry-body :global(code) {
+    font-size: var(--w-text-xs);
+    padding: 1px 5px;
+    border-radius: 2px;
+    background: var(--panel-soft);
+    box-shadow: inset 0 0 0 1px var(--line);
+    color: var(--wheat);
+  }
+  .entry-body :global(a) {
+    color: var(--primary);
+  }
+  .entry-body :global(blockquote) {
+    margin: 12px 0 0;
+    padding-left: 14px;
+    box-shadow: inset 2px 0 0 var(--primary);
+    color: var(--muted-foreground);
+  }
+  .entry-body :global(h3) {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-sm);
+    font-weight: 400;
+    color: var(--foreground);
+    margin: 18px 0 8px;
+  }
+</style>

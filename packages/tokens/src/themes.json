@@ -1,0 +1,291 @@
+{
+  "$description": "weed 主题的机器可读视图。由 packages/tokens/tokens.json 生成，供站点与 agent 共用。",
+  "radius": {
+    "value": 3,
+    "unit": "px"
+  },
+  "type": {
+    "xs": "10.5px",
+    "sm": "12px",
+    "base": "13.5px",
+    "lg": "17px",
+    "xl": "26px",
+    "2xl": "38px"
+  },
+  "themes": {
+    "dark": {
+      "background": {
+        "cssVar": "--background",
+        "value": "oklch(0.145 0.004 67.5)",
+        "hex": "#0b0a08"
+      },
+      "foreground": {
+        "cssVar": "--foreground",
+        "value": "oklch(0.911 0.013 82.4)",
+        "hex": "#e6e1d8"
+      },
+      "panel": {
+        "cssVar": "--panel",
+        "value": "oklch(0.263 0.023 259.3)",
+        "hex": "#1e2530"
+      },
+      "panelSoft": {
+        "cssVar": "--panel-soft",
+        "value": "oklch(0.205 0.014 255)",
+        "hex": "#13181e"
+      },
+      "panelForeground": {
+        "cssVar": "--panel-foreground",
+        "value": "oklch(0.911 0.013 82.4)",
+        "hex": "#e6e1d8"
+      },
+      "card": {
+        "cssVar": "--card",
+        "value": "oklch(0.263 0.023 259.3)",
+        "hex": "#1e2530"
+      },
+      "cardForeground": {
+        "cssVar": "--card-foreground",
+        "value": "oklch(0.911 0.013 82.4)",
+        "hex": "#e6e1d8"
+      },
+      "popover": {
+        "cssVar": "--popover",
+        "value": "oklch(0.225 0.016 255)",
+        "hex": "#171c23"
+      },
+      "popoverForeground": {
+        "cssVar": "--popover-foreground",
+        "value": "oklch(0.911 0.013 82.4)",
+        "hex": "#e6e1d8"
+      },
+      "line": {
+        "cssVar": "--line",
+        "value": "oklch(0.31 0.012 252)",
+        "hex": "#2c3136"
+      },
+      "lineStrong": {
+        "cssVar": "--line-strong",
+        "value": "oklch(0.395 0.016 252)",
+        "hex": "#40474f"
+      },
+      "border": {
+        "cssVar": "--border",
+        "value": "oklch(0.31 0.012 252)",
+        "hex": "#2c3136"
+      },
+      "muted": {
+        "cssVar": "--muted",
+        "value": "oklch(0.205 0.014 255)",
+        "hex": "#13181e"
+      },
+      "mutedForeground": {
+        "cssVar": "--muted-foreground",
+        "value": "oklch(0.62 0.014 82)",
+        "hex": "#8a857d"
+      },
+      "primary": {
+        "cssVar": "--primary",
+        "value": "oklch(0.683 0.087 245.2)",
+        "hex": "#6a9fcc"
+      },
+      "primaryForeground": {
+        "cssVar": "--primary-foreground",
+        "value": "oklch(0.16 0.012 248.5)",
+        "hex": "#090e12"
+      },
+      "accent": {
+        "cssVar": "--accent",
+        "value": "oklch(0.683 0.087 245.2)",
+        "hex": "#6a9fcc"
+      },
+      "accentForeground": {
+        "cssVar": "--accent-foreground",
+        "value": "oklch(0.16 0.012 248.5)",
+        "hex": "#090e12"
+      },
+      "secondary": {
+        "cssVar": "--secondary",
+        "value": "oklch(0.205 0.014 255)",
+        "hex": "#13181e"
+      },
+      "secondaryForeground": {
+        "cssVar": "--secondary-foreground",
+        "value": "oklch(0.911 0.013 82.4)",
+        "hex": "#e6e1d8"
+      },
+      "destructive": {
+        "cssVar": "--destructive",
+        "value": "oklch(0.582 0.109 60.4)",
+        "hex": "#a96a30"
+      },
+      "destructiveForeground": {
+        "cssVar": "--destructive-foreground",
+        "value": "oklch(0.951 0.016 82.8)",
+        "hex": "#f4eee3"
+      },
+      "input": {
+        "cssVar": "--input",
+        "value": "oklch(0.395 0.016 252)",
+        "hex": "#40474f"
+      },
+      "ring": {
+        "cssVar": "--ring",
+        "value": "oklch(0.683 0.087 245.2)",
+        "hex": "#6a9fcc"
+      },
+      "ochre": {
+        "cssVar": "--ochre",
+        "value": "oklch(0.68 0.111 62.3)",
+        "hex": "#c9884b"
+      },
+      "wheat": {
+        "cssVar": "--wheat",
+        "value": "oklch(0.775 0.084 78.8)",
+        "hex": "#d3b078"
+      },
+      "sage": {
+        "cssVar": "--sage",
+        "value": "oklch(0.705 0.057 131.9)",
+        "hex": "#93a883"
+      }
+    },
+    "light": {
+      "background": {
+        "cssVar": "--background",
+        "value": "oklch(0.951 0.016 82.8)",
+        "hex": "#f4eee3"
+      },
+      "foreground": {
+        "cssVar": "--foreground",
+        "value": "oklch(0.254 0.012 78)",
+        "hex": "#26221c"
+      },
+      "panel": {
+        "cssVar": "--panel",
+        "value": "oklch(0.98 0.01 87.5)",
+        "hex": "#fbf8f1"
+      },
+      "panelSoft": {
+        "cssVar": "--panel-soft",
+        "value": "oklch(0.962 0.014 88)",
+        "hex": "#f6f2e8"
+      },
+      "panelForeground": {
+        "cssVar": "--panel-foreground",
+        "value": "oklch(0.254 0.012 78)",
+        "hex": "#26221c"
+      },
+      "card": {
+        "cssVar": "--card",
+        "value": "oklch(0.98 0.01 87.5)",
+        "hex": "#fbf8f1"
+      },
+      "cardForeground": {
+        "cssVar": "--card-foreground",
+        "value": "oklch(0.254 0.012 78)",
+        "hex": "#26221c"
+      },
+      "popover": {
+        "cssVar": "--popover",
+        "value": "oklch(0.98 0.01 87.5)",
+        "hex": "#fbf8f1"
+      },
+      "popoverForeground": {
+        "cssVar": "--popover-foreground",
+        "value": "oklch(0.254 0.012 78)",
+        "hex": "#26221c"
+      },
+      "line": {
+        "cssVar": "--line",
+        "value": "oklch(0.8 0.02 85.7)",
+        "hex": "#c3bdb0"
+      },
+      "lineStrong": {
+        "cssVar": "--line-strong",
+        "value": "oklch(0.68 0.025 84.6)",
+        "hex": "#9f9787"
+      },
+      "border": {
+        "cssVar": "--border",
+        "value": "oklch(0.8 0.02 85.7)",
+        "hex": "#c3bdb0"
+      },
+      "muted": {
+        "cssVar": "--muted",
+        "value": "oklch(0.847 0.028 85.7)",
+        "hex": "#d5ccb9"
+      },
+      "mutedForeground": {
+        "cssVar": "--muted-foreground",
+        "value": "oklch(0.517 0.022 80)",
+        "hex": "#6f675a"
+      },
+      "primary": {
+        "cssVar": "--primary",
+        "value": "oklch(0.528 0.092 248.6)",
+        "hex": "#3d6f9e"
+      },
+      "primaryForeground": {
+        "cssVar": "--primary-foreground",
+        "value": "oklch(0.98 0.01 87.5)",
+        "hex": "#fbf8f1"
+      },
+      "accent": {
+        "cssVar": "--accent",
+        "value": "oklch(0.528 0.092 248.6)",
+        "hex": "#3d6f9e"
+      },
+      "accentForeground": {
+        "cssVar": "--accent-foreground",
+        "value": "oklch(0.98 0.01 87.5)",
+        "hex": "#fbf8f1"
+      },
+      "secondary": {
+        "cssVar": "--secondary",
+        "value": "oklch(0.847 0.028 85.7)",
+        "hex": "#d5ccb9"
+      },
+      "secondaryForeground": {
+        "cssVar": "--secondary-foreground",
+        "value": "oklch(0.254 0.012 78)",
+        "hex": "#26221c"
+      },
+      "destructive": {
+        "cssVar": "--destructive",
+        "value": "oklch(0.582 0.109 60.4)",
+        "hex": "#a96a30"
+      },
+      "destructiveForeground": {
+        "cssVar": "--destructive-foreground",
+        "value": "oklch(0.98 0.01 87.5)",
+        "hex": "#fbf8f1"
+      },
+      "input": {
+        "cssVar": "--input",
+        "value": "oklch(0.68 0.025 84.6)",
+        "hex": "#9f9787"
+      },
+      "ring": {
+        "cssVar": "--ring",
+        "value": "oklch(0.528 0.092 248.6)",
+        "hex": "#3d6f9e"
+      },
+      "ochre": {
+        "cssVar": "--ochre",
+        "value": "oklch(0.582 0.109 60.4)",
+        "hex": "#a96a30"
+      },
+      "wheat": {
+        "cssVar": "--wheat",
+        "value": "oklch(0.571 0.077 81.2)",
+        "hex": "#8f7340"
+      },
+      "sage": {
+        "cssVar": "--sage",
+        "value": "oklch(0.528 0.059 134.2)",
+        "hex": "#5d7350"
+      }
+    }
+  }
+}

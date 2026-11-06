@@ -1,0 +1,143 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import { CodeBlock } from "@weed-ui/code-block";
+import "../../styles/global.css";
+---
+
+<Docs
+  title="安装 · weed docs"
+  description="weed-ui 安装指南：单 URL 安装、namespace registry、主题接入与无闪烁 bootstrap。"
+>
+  <header class="doc-head">
+    <p class="w-eyebrow">docs / installation</p>
+    <h1 class="doc-title">安装</h1>
+  </header>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">01 · single url</p>
+    <CodeBlock
+      client:visible
+      language="BASH"
+      filename="~/weed"
+      prompt
+      code={`npx shadcn add https://weedui.dev/r/button.json`}
+    />
+    <p class="doc-note">
+      组件自带主题 token（styles/weed-ui/*.css）、cn()（lib/utils.ts）与 npm 依赖。
+      前提：项目已跑 Tailwind CSS v4 并配好 @ alias。
+    </p>
+  </section>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">02 · namespace</p>
+    <p class="doc-note">装三个以上再用这个。在 components.json 里加 registry：</p>
+    <CodeBlock
+      client:visible
+      language="JSON"
+      filename="components.json"
+      code={`{
+  "registries": {
+    "@weed-ui": "https://weedui.dev/r/{name}.json"
+  }
+}`}
+    />
+    <CodeBlock
+      client:visible
+      language="BASH"
+      filename="~/weed"
+      prompt
+      code={`npx shadcn add @weed-ui/button
+npx shadcn add @weed-ui/tabs @weed-ui/dialog`}
+    />
+  </section>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">03 · theme</p>
+    <CodeBlock
+      client:visible
+      language="CSS"
+      filename="app/globals.css"
+      code={`@import "tailwindcss";
+@import "./styles/weed-ui/tailwind.css";   /* 或把 @theme 映射写进你的 globals */
+@import "./styles/weed-ui/tokens.css";
+@import "./styles/weed-ui/fonts.css";
+@import "./styles/weed-ui/blueprint.css";`}
+    />
+    <p class="doc-note">
+      字体文件自管：Departure Mono（SIL OFL，不在 fontsource/Google Fonts，从
+      <a href="https://github.com/rektdeckard/departure-mono/releases" target="_blank" rel="noreferrer">GitHub releases</a>
+      下载 woff2 并随附许可文件）；Source Serif 4 用
+      <code class="doc-chip">@fontsource-variable/source-serif-4</code>。中文走系统黑体，无需额外字体。
+    </p>
+  </section>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">04 · no-flash bootstrap</p>
+    <p class="doc-note">
+      token 由 <code class="doc-chip">&lt;html data-theme="dark|light"&gt;</code>
+      驱动。把这段内联进 <code class="doc-chip">&lt;head&gt;</code>，首帧即正确主题
+      （存过偏好则跟随偏好，否则跟随系统）：
+    </p>
+    <CodeBlock
+      client:visible
+      language="JS"
+      filename="layout head (inline)"
+      code={`<script>
+  (function () {
+    var t;
+    try { t = localStorage.getItem("weed-theme"); } catch (e) {}
+    if (t !== "light" && t !== "dark") {
+      t = window.matchMedia("(prefers-color-scheme: light)")
+        .matches ? "light" : "dark";
+    }
+    document.documentElement.dataset.theme = t;
+  })();
+</script>`}
+    />
+    <p class="doc-note">
+      然后放上 <a href="/docs/components/theme-toggle">ThemeToggle</a>，完事。
+      深浅主题语义 token 全覆盖，组件层零改动。
+    </p>
+  </section>
+</Docs>
+
+<style>
+  .doc-head {
+    margin-bottom: 36px;
+  }
+  .doc-title {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-2xl);
+    font-weight: 400;
+    margin: 10px 0 0;
+  }
+  .doc-section {
+    margin-bottom: 40px;
+  }
+  .sec-label {
+    margin-bottom: 14px;
+  }
+  .doc-section .code-block {
+    max-width: 620px;
+    margin-bottom: 8px;
+  }
+  .doc-note {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+    margin: 10px 0 12px;
+    line-height: var(--w-leading-prose);
+    max-width: 62ch;
+  }
+  .doc-note a {
+    color: var(--primary);
+  }
+  .doc-chip {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    padding: 1px 6px;
+    border-radius: 2px;
+    background: var(--panel-soft);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+</style>

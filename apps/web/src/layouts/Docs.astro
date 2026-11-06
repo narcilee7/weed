@@ -1,0 +1,159 @@
+---
+import Base from "./Base.astro";
+import { COMPONENTS, CATEGORIES } from "../data/components";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+
+const guides = [
+  { href: "/docs", label: "overview" },
+  { href: "/docs/installation", label: "installation" },
+  { href: "/docs/theming", label: "theming" },
+];
+const path = Astro.url.pathname;
+---
+
+<Base title={title} description={description} wide>
+  <div class="docs-shell">
+    <aside class="docs-aside">
+      <p class="docs-tree">
+        <span class="docs-tree__root">docs/</span>
+      </p>
+      <nav class="docs-nav">
+        {
+          guides.map((g) => (
+            <a
+              class:list={["docs-nav__item", { active: path === g.href }]}
+              href={g.href}
+            >
+              <span class="docs-nav__branch">├─</span>
+              {g.label}
+            </a>
+          ))
+        }
+        <p class="docs-tree">
+          <span class="docs-tree__root">components/</span>
+        </p>
+        {
+          CATEGORIES.map((cat) => {
+            const items = COMPONENTS.filter((c) => c.category === cat);
+            if (!items.length) return null;
+            return (
+              <div class="docs-group">
+                <p class="docs-group__name">{cat.toLowerCase()}</p>
+                {items.map((c) => (
+                  <a
+                    class:list={[
+                      "docs-nav__item",
+                      { active: path === `/docs/components/${c.slug}` },
+                    ]}
+                    href={`/docs/components/${c.slug}`}
+                  >
+                    <span class="docs-nav__branch">├─</span>
+                    {c.slug}
+                    {c.signature && <span class="docs-star">★</span>}
+                  </a>
+                ))}
+              </div>
+            );
+          })
+        }
+      </nav>
+    </aside>
+    <article class="docs-article">
+      <slot />
+    </article>
+  </div>
+</Base>
+
+<style>
+  .docs-shell {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 40px;
+  }
+  .docs-aside {
+    position: sticky;
+    top: 66px;
+    align-self: start;
+  }
+  .docs-tree {
+    margin: 14px 0 6px;
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+  }
+  .docs-tree__root {
+    color: var(--primary);
+  }
+  .docs-tree:first-child {
+    margin-top: 0;
+  }
+  .docs-nav {
+    display: flex;
+    flex-direction: column;
+  }
+  .docs-nav__item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 6px 2px 0;
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+    border-radius: var(--w-radius-sm);
+  }
+  .docs-nav__item:hover {
+    color: var(--foreground);
+  }
+  .docs-nav__item.active {
+    color: var(--foreground);
+    background: var(--panel-soft);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .docs-nav__branch {
+    color: var(--line-strong);
+  }
+  .docs-group {
+    margin-bottom: 6px;
+  }
+  .docs-group__name {
+    margin: 8px 0 2px;
+    padding-left: 14px;
+    font-family: var(--w-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted-foreground);
+    opacity: 0.7;
+  }
+  .docs-star {
+    color: var(--wheat);
+  }
+  .docs-article {
+    min-width: 0;
+  }
+  @media (max-width: 860px) {
+    .docs-shell {
+      grid-template-columns: 1fr;
+    }
+    .docs-aside {
+      position: static;
+    }
+    .docs-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .docs-tree,
+    .docs-group__name {
+      display: none;
+    }
+    .docs-nav__branch {
+      display: none;
+    }
+  }
+</style>

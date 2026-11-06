@@ -1,0 +1,248 @@
+---
+import { CodeBlock } from "@weed-ui/code-block";
+import Base from "../layouts/Base.astro";
+import { COMPONENTS } from "../data/components";
+import "../styles/global.css";
+---
+
+<Base title="weed · 野草 — components that grow anywhere">
+  <!-- hero -->
+  <section class="hero w-blueprint">
+    <p class="w-eyebrow">weed v0.1 · terminal / editorial</p>
+    <h1 class="hero-title">
+      components that grow anywhere<span class="w-caret" />
+    </h1>
+    <p class="hero-sub">
+      终端 / IDE 风的 shadcn/ui registry。等宽字面、暖暗大地色、蓝图网格、
+      1px 内描边。源码复制进你的仓库，落地生根，归你所有。
+    </p>
+
+    <div class="hero-term">
+      <CodeBlock
+        client:load
+        language="BASH"
+        filename="~/weed"
+        prompt
+        code={`npx shadcn add https://weedui.dev/r/button.json`}
+      />
+    </div>
+
+    <nav class="hero-nav w-mono">
+      <a href="/docs">docs</a>
+      <a href="/components">components</a>
+      <a href="/docs/theming">theming</a>
+      <a href="https://github.com/narcilee7/weed" target="_blank" rel="noreferrer">github ↗</a>
+    </nav>
+  </section>
+
+  <!-- three panes -->
+  <section class="panes">
+    <article class="pane">
+      <div class="w-bar">
+        <span class="w-bar__dots"><i class="w-bar__dot w-bar__dot--on" /></span>
+        <span class="w-bar__label">type</span>
+      </div>
+      <div class="pane__body">
+        <p class="pane__line">Departure Mono → 拉丁与数据</p>
+        <p class="pane__line">PingFang SC → 中文，永不宋体</p>
+        <p class="pane__line">Source Serif 4 → 只留给引文</p>
+      </div>
+    </article>
+    <article class="pane">
+      <div class="w-bar">
+        <span class="w-bar__dots"><i class="w-bar__dot w-bar__dot--on" /></span>
+        <span class="w-bar__label">color</span>
+      </div>
+      <div class="pane__body">
+        <p class="pane__line">background #0d0c0b 暖黑</p>
+        <p class="pane__line">panel #1e2530 灰蓝实底</p>
+        <p class="pane__line">accent #6a9fcc 低饱和蓝</p>
+      </div>
+    </article>
+    <article class="pane">
+      <div class="w-bar">
+        <span class="w-bar__dots"><i class="w-bar__dot w-bar__dot--on" /></span>
+        <span class="w-bar__label">texture</span>
+      </div>
+      <div class="pane__body">
+        <p class="pane__line">20px 小格 / 100px 双档线</p>
+        <p class="pane__line">hairline = inset box-shadow</p>
+        <p class="pane__line">radius 3px，到此为止</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- component list, like a file tree -->
+  <section class="listing">
+    <div class="w-bar">
+      <span class="w-bar__dots"><i class="w-bar__dot w-bar__dot--on" /></span>
+      <span class="w-bar__label">components/</span>
+      <span class="w-bar__label" style="margin-left:auto">npx shadcn add https://weedui.dev/r/&lt;name&gt;.json</span>
+    </div>
+    <ul class="file-list w-mono">
+      {
+        COMPONENTS.map((c) => (
+          <li class="file">
+            <a class="file__name" href={`/docs/components/${c.slug}`}>
+              {c.slug}.tsx
+            </a>
+            {c.signature && <span class="file__star">★</span>}
+            <span class="file__desc">{c.summary}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- distribution -->
+  <section class="notes">
+    <div class="note">
+      <p class="w-eyebrow">01 · copy, not install</p>
+      <p class="note__body">
+        安装即落地：组件源码、主题 token、cn() 一起进仓库，之后与你无关。
+      </p>
+    </div>
+    <div class="note">
+      <p class="w-eyebrow">02 · self-contained</p>
+      <p class="note__body">
+        每个组件一条 URL 就能装，零配置。装三个以上再切 namespace。
+      </p>
+    </div>
+    <div class="note">
+      <p class="w-eyebrow">03 · 11 components</p>
+      <p class="note__body">
+        10 个常规组件 + 1 个别家没有的签名组件 BlueprintGrid。宁缺毋滥。
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding: 40px 0 44px;
+    margin-bottom: 44px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-title {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-2xl);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 14px 0 16px;
+  }
+  .hero-sub {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-base);
+    line-height: var(--w-leading-prose);
+    color: var(--muted-foreground);
+    margin: 0 0 24px;
+    max-width: 56ch;
+  }
+  .hero-term {
+    max-width: 520px;
+    margin-bottom: 18px;
+  }
+  .hero-nav {
+    display: flex;
+    gap: 18px;
+    font-size: var(--w-text-sm);
+  }
+  .hero-nav a {
+    color: var(--muted-foreground);
+  }
+  .hero-nav a:hover {
+    color: var(--primary);
+  }
+
+  .panes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 44px;
+  }
+  .pane {
+    border-radius: var(--w-radius);
+    background: var(--panel);
+    box-shadow: inset 0 0 0 1px var(--line);
+    overflow: hidden;
+  }
+  .pane__body {
+    padding: 12px 14px 14px;
+  }
+  .pane__line {
+    margin: 0 0 6px;
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+    line-height: 1.6;
+  }
+  .pane__line:last-child {
+    margin-bottom: 0;
+  }
+
+  .listing {
+    margin-bottom: 44px;
+    border-radius: var(--w-radius);
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .file-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: var(--panel);
+  }
+  .file {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 6px 14px;
+    font-size: var(--w-text-sm);
+    border-bottom: 1px solid var(--line);
+  }
+  .file:last-child {
+    border-bottom: 0;
+  }
+  .file:hover {
+    background: var(--panel-soft);
+  }
+  .file__name {
+    color: var(--primary);
+    min-width: 148px;
+  }
+  .file__star {
+    color: var(--wheat);
+    margin-left: -6px;
+  }
+  .file__desc {
+    color: var(--muted-foreground);
+    font-size: var(--w-text-xs);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .notes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding-bottom: 24px;
+  }
+  .note__body {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-sm);
+    line-height: var(--w-leading-prose);
+    color: var(--muted-foreground);
+    margin: 8px 0 0;
+  }
+  @media (max-width: 760px) {
+    .panes,
+    .notes {
+      grid-template-columns: 1fr;
+    }
+    .file__desc {
+      display: none;
+    }
+  }
+</style>

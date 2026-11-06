@@ -1,0 +1,201 @@
+---
+import { ThemeToggle } from "@weed-ui/theme-toggle";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  wide?: boolean;
+}
+const {
+  title,
+  description = "weed — components that grow anywhere. 终端 / IDE 风的 shadcn/ui registry。",
+  wide = false,
+} = Astro.props;
+
+const site = Astro.site ?? new URL("https://weedui.dev");
+const canonical = new URL(Astro.url.pathname, site);
+const path = Astro.url.pathname;
+/** 本页的纯文本孪生 —— 人和 agent 读到的是同一份事实 */
+const TWIN_ROUTES = new Set([
+  "/",
+  "/components",
+  "/changelog",
+  "/docs",
+  "/docs/installation",
+  "/docs/theming",
+]);
+const hasTwin = TWIN_ROUTES.has(path) || /^\/docs\/components\/[a-z0-9-]+$/.test(path);
+const twin = path === "/" ? "/index.md" : `${path}.md`;
+---
+
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="generator" content={Astro.generator} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <!-- no-flash theme bootstrap: runs before first paint -->
+    <script is:inline>
+      (function () {
+        var t;
+        try {
+          t = localStorage.getItem("weed-theme");
+        } catch (e) {}
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark";
+        }
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-brand" href="/">
+        <span class="site-brand__mark">weed</span>
+        <span class="site-brand__path">~/weed</span>
+      </a>
+      <nav class="site-nav">
+        <a class:list={["site-tab", { active: path.startsWith("/docs") }]} href="/docs">
+          docs
+        </a>
+        <a
+          class:list={["site-tab", { active: path.startsWith("/components") }]}
+          href="/components"
+        >
+          components
+        </a>
+        <a
+          class:list={["site-tab", { active: path.startsWith("/changelog") }]}
+          href="/changelog"
+        >
+          changelog
+        </a>
+        <a class="site-tab" href="https://github.com/narcilee7/weed" target="_blank" rel="noreferrer">
+          github ↗
+        </a>
+        <ThemeToggle client:load />
+      </nav>
+    </header>
+
+    <main class:list={["site-main", { wide }]}>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 weed-ui · MIT</span>
+      <span class="site-footer__links">
+        {hasTwin && <a href={twin}>本页 .md</a>}
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/llms-full.txt">llms-full.txt</a>
+      </span>
+      <span class="site-footer__hint">
+        <span class="text-[var(--w-c-prompt)]">$</span> components that grow anywhere
+      </span>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 0 20px;
+    height: 42px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    font-size: var(--w-text-sm);
+  }
+  .site-brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--foreground);
+  }
+  .site-brand__mark {
+    color: var(--primary);
+    letter-spacing: 0.08em;
+  }
+  .site-brand__path {
+    color: var(--muted-foreground);
+    font-size: var(--w-text-xs);
+  }
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .site-tab {
+    color: var(--muted-foreground);
+    padding: 4px 9px;
+    border-radius: var(--w-radius-sm);
+    transition: color 0.12s, background-color 0.12s;
+  }
+  .site-tab:hover {
+    color: var(--foreground);
+    background: var(--panel-soft);
+  }
+  .site-tab.active {
+    color: var(--foreground);
+    background: var(--background);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .site-main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 20px 72px;
+    min-height: 72vh;
+  }
+  .site-main.wide {
+    max-width: 1000px;
+  }
+  .site-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px 26px;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-top: 1px solid var(--line);
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+  }
+  .site-footer__hint {
+    display: inline-flex;
+    gap: 6px;
+  }
+  .site-footer__links {
+    display: inline-flex;
+    gap: 14px;
+  }
+  .site-footer__links a {
+    color: var(--muted-foreground);
+  }
+  .site-footer__links a:hover {
+    color: var(--primary);
+  }
+  @media (max-width: 700px) {
+    .site-nav .site-tab:nth-child(3) {
+      display: none;
+    }
+    .site-main {
+      padding: 24px 16px 56px;
+    }
+  }
+</style>

@@ -1,0 +1,201 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import { CodeBlock } from "@weed-ui/code-block";
+import { SEMANTIC_ROWS, TYPE_ROWS, RADIUS } from "../../data/tokens";
+import "../../styles/global.css";
+---
+
+<Docs
+  title="主题与 Token · weed docs"
+  description="weed 设计语言：等宽字面、OKLCH 三档 token、双主题机制与 tweakcn 主题。"
+>
+  <header class="doc-head">
+    <p class="w-eyebrow">docs / theming</p>
+    <h1 class="doc-title">主题与 Token</h1>
+    <p class="doc-summary">
+      单一事实源在 packages/tokens/tokens.json：OKLCH 三档，双主题，三种输出形态
+      （CSS vars / Tailwind v4 preset / tweakcn JSON）。
+    </p>
+  </header>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">type</p>
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>token</th>
+          <th>size</th>
+          <th>用途</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          TYPE_ROWS.map((row) => (
+            <tr>
+              <td class="name">{row.token}</td>
+              <td class="type">{row.size}</td>
+              <td>{row.usage}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    <p class="doc-note">
+      字体栈：拉丁用 Departure Mono（像素等宽），中文回落 PingFang SC 等系统黑体
+      ——<strong>永不落到宋体</strong>。Source Serif 4 只留给引文与 hero 强调词。
+    </p>
+  </section>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">semantic tokens</p>
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>token</th>
+          <th>dark</th>
+          <th>light</th>
+          <th>用途</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          SEMANTIC_ROWS.map((row) => (
+            <tr>
+              <td class="name">{row.name}</td>
+              <td>
+                <span class="chip" style={`background:${row.dark.value}`} />
+                <span class="hex">{row.dark.hex}</span>
+              </td>
+              <td>
+                <span class="chip" style={`background:${row.light.value}`} />
+                <span class="hex">{row.light.hex}</span>
+              </td>
+              <td>{row.usage}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">three tiers</p>
+    <CodeBlock
+      client:visible
+      language="CSS"
+      filename="styles/weed-ui/tokens.css (节选)"
+      code={`/* 1. primitive — 原料色，主题无关 */
+:root {
+  --w-ink-900: oklch(0.179 0.005 67.5);   /* #13110f 暖黑 */
+  --w-slate-950: oklch(0.263 0.023 259.3); /* #1e2530 灰蓝 */
+  --w-blue: oklch(0.683 0.087 245.2);      /* #6a9fcc accent */
+}
+
+/* 2. semantic — shadcn 标准名，双主题 */
+:root, [data-theme="dark"] { --background: oklch(0.145 0.004 67.5); ... }
+[data-theme="light"]        { --background: oklch(0.951 0.016 82.8); ... }
+
+/* 3. component — 组件层组合 */
+:root {
+  --w-c-button-bg: var(--panel);
+  --w-c-prompt: var(--sage);
+  --w-radius: ${RADIUS.value}${RADIUS.unit};
+}`}
+    />
+    <p class="doc-note">
+      OKLCH 值由锚点 hex 经 <code class="doc-chip">scripts/hex-to-oklch.mjs</code>
+      换算，改色永远走「改锚点 → 跑脚本 → 回填」，可追溯到设计稿。
+      Tailwind v4 项目在 <code class="doc-chip">tailwind.css</code> 有完整的
+      <code class="doc-chip">@theme inline</code> 映射。
+    </p>
+  </section>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">tweakcn</p>
+    <p class="doc-note">
+      只薅主题不装组件也完全可以——tweakcn 兼容 JSON 已备好（
+      <a href="https://ui.tweakcn.com" target="_blank" rel="noreferrer">ui.tweakcn.com</a>
+      导入 packages/tokens/src/tweakcn/ 下的 dark / light 两份）。野草不挑土。
+    </p>
+  </section>
+</Docs>
+
+<style>
+  .doc-head {
+    margin-bottom: 36px;
+  }
+  .doc-title {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-2xl);
+    font-weight: 400;
+    margin: 10px 0 0;
+  }
+  .doc-section {
+    margin-bottom: 44px;
+  }
+  .sec-label {
+    margin-bottom: 14px;
+  }
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-sm);
+  }
+  .doc-table th {
+    text-align: left;
+    font-size: 10.5px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted-foreground);
+    padding: 6px 10px;
+    background: var(--panel-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  .doc-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+  }
+  .doc-table td.name {
+    color: var(--primary);
+    white-space: nowrap;
+  }
+  .hex {
+    font-size: 10px;
+    color: var(--muted-foreground);
+    margin-left: 8px;
+  }
+  .chip {
+    display: inline-block;
+    width: 26px;
+    height: 14px;
+    border-radius: 2px;
+    vertical-align: middle;
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+  }
+  .doc-note {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+    margin-top: 12px;
+    line-height: var(--w-leading-prose);
+    max-width: 62ch;
+  }
+  .doc-note a {
+    color: var(--primary);
+  }
+  .doc-note strong {
+    color: var(--foreground);
+    font-weight: 400;
+  }
+  .doc-chip {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    padding: 1px 6px;
+    border-radius: 2px;
+    background: var(--panel-soft);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+</style>

@@ -1,0 +1,26 @@
+/**
+ * GENERATED FILE — 请勿手改。
+ * source: packages/tokens/tokens.json
+ * build:  pnpm tokens:build
+ */
+
+/* mono 是主字体，不是配角 —— 界面、数据、标签、正文（中文）全走 mono 体系 */
+/* 中文永不落到宋体：Latin 用 Departure Mono，中文回落 PingFang SC 等系统黑体 */
+/* 衬线只做一件事：少量拉丁引文与 hero 强调词 */
+
+:root {
+  --w-font-mono: "Departure Mono", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --w-font-serif: "Source Serif 4", Georgia, "Times New Roman", "PingFang SC", "Noto Sans CJK SC", serif;
+
+  /* 终端 / IDE 型尺度：紧凑、小字号、高密度 */
+  --w-text-xs: 10.5px;
+  --w-text-sm: 12px;
+  --w-text-base: 13.5px;
+  --w-text-lg: 17px;
+  --w-text-xl: 26px;
+  --w-text-2xl: 38px;
+
+  --w-tracking-label: 0.1em;
+  --w-leading-prose: 1.65;
+  --w-leading-ui: 1.45;
+}

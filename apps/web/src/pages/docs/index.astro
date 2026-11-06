@@ -1,0 +1,156 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import { CodeBlock } from "@weed-ui/code-block";
+import { COMPONENTS } from "../../data/components";
+import "../../styles/global.css";
+---
+
+<Docs title="weed docs" description="weed-ui 文档：安装、主题、组件 API 与 live demo。">
+  <header class="doc-head">
+    <p class="w-eyebrow">docs / overview</p>
+    <h1 class="doc-title">野草使用手册</h1>
+    <p class="doc-summary">
+      weed 不发 npm 包。源码通过 shadcn registry 复制进你的仓库，
+      落地之后归你所有——想删组件直接删文件，想改样式直接改源码。
+      这就是全部的 API。
+    </p>
+  </header>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">quick start</p>
+    <CodeBlock
+      client:visible
+      language="BASH"
+      filename="~/weed"
+      prompt
+      code={`npx shadcn add https://weedui.dev/r/button.json`}
+    />
+    <p class="doc-note">
+      每个组件自包含：主题 token 与 cn() 工具随组件一起落地，单 URL 安装零配置。
+      装三个以上建议改用 namespace，见 <a href="/docs/installation">installation</a>。
+    </p>
+  </section>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">components</p>
+    <div class="comp-list">
+      {
+        COMPONENTS.map((c) => (
+          <a class="comp-row" href={`/docs/components/${c.slug}`}>
+            <span class="comp-row__name">
+              {c.slug}
+              {c.signature && <span class="file__star">★</span>}
+            </span>
+            <span class="comp-row__cat">{c.category.toLowerCase()}</span>
+            <span class="comp-row__desc">{c.summary}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">design language</p>
+    <p class="doc-note">
+      等宽字面、暖暗大地色、蓝图网格——识别度的来源与定制入口见
+      <a href="/docs/theming">theming</a>。改动原则记录在仓库的
+      <code class="doc-chip">design/principles.md</code>。
+    </p>
+  </section>
+</Docs>
+
+<style>
+  .doc-head {
+    margin-bottom: 36px;
+  }
+  .doc-title {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-2xl);
+    font-weight: 400;
+    margin: 10px 0 12px;
+  }
+  .doc-summary {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-base);
+    color: var(--muted-foreground);
+    margin: 0;
+    max-width: 58ch;
+    line-height: var(--w-leading-prose);
+  }
+  .doc-section {
+    margin-bottom: 44px;
+  }
+  .sec-label {
+    margin-bottom: 14px;
+  }
+  .doc-note {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+    margin-top: 12px;
+    line-height: var(--w-leading-prose);
+    max-width: 62ch;
+  }
+  .doc-note a {
+    color: var(--primary);
+  }
+  .comp-list {
+    border-radius: var(--w-radius);
+    background: var(--panel);
+    box-shadow: inset 0 0 0 1px var(--line);
+    overflow: hidden;
+  }
+  .comp-row {
+    display: grid;
+    grid-template-columns: 150px 90px 1fr;
+    gap: 12px;
+    align-items: baseline;
+    padding: 7px 14px;
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-sm);
+    color: var(--foreground);
+    border-bottom: 1px solid var(--line);
+  }
+  .comp-row:last-child {
+    border-bottom: 0;
+  }
+  .comp-row:hover {
+    background: var(--panel-soft);
+  }
+  .comp-row__name {
+    color: var(--primary);
+  }
+  .comp-row__cat {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted-foreground);
+  }
+  .comp-row__desc {
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .file__star {
+    color: var(--wheat);
+    margin-left: 4px;
+  }
+  .doc-chip {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    padding: 1px 6px;
+    border-radius: 2px;
+    background: var(--panel-soft);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  @media (max-width: 720px) {
+    .comp-row {
+      grid-template-columns: 110px 1fr;
+    }
+    .comp-row__cat {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@import "@weed/tokens/tailwind.css";
+
+/* Departure Mono — self-hosted, SIL OFL 1.1 (license: src/fonts/) */
+@font-face {
+  font-family: "Departure Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/DepartureMono-Regular.woff2") format("woff2");
+}
+
+/* Source Serif 4 — variable, via @fontsource. 只用于引文与强调词。 */
+@import "@fontsource-variable/source-serif-4";
+
+@import "@weed/tokens/tokens.css";
+@import "@weed/tokens/fonts.css";
+@import "@weed/tokens/blueprint.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--w-font-mono);
+  font-size: var(--w-text-base);
+  line-height: var(--w-leading-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--w-font-mono);
+}

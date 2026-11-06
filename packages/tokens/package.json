@@ -1,0 +1,27 @@
+{
+  "name": "@weed/tokens",
+  "version": "0.0.0",
+  "description": "weed design language — single source of truth. CSS variables / Tailwind v4 preset / tweakcn-compatible JSON.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-tokens.mjs",
+    "check": "node scripts/build-tokens.mjs --check"
+  },
+  "exports": {
+    "./tokens.css": "./src/tokens.css",
+    "./fonts.css": "./src/fonts.css",
+    "./blueprint.css": "./src/blueprint.css",
+    "./tailwind.css": "./src/tailwind.css",
+    "./themes.json": "./src/themes.json",
+    "./tokens.json": "./tokens.json",
+    "./tweakcn/dark.json": "./src/tweakcn/dark.json",
+    "./tweakcn/light.json": "./src/tweakcn/light.json"
+  },
+  "files": [
+    "src",
+    "scripts",
+    "tokens.json",
+    "README.md"
+  ]
+}

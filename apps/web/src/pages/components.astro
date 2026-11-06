@@ -1,0 +1,83 @@
+---
+import Base from "../layouts/Base.astro";
+import DemoHost from "../demos/index";
+import { COMPONENTS } from "../data/components";
+import "../styles/global.css";
+---
+
+<Base
+  title="components · weed"
+  description="weed-ui 全部组件 live demo：Button / Input / Card / Badge / Tabs / Table / Dialog / Tooltip / CodeBlock / ThemeToggle / BlueprintGrid"
+>
+  <header class="doc-head">
+    <p class="w-eyebrow">components / index</p>
+    <h1 class="doc-title">组件总览</h1>
+    <p class="doc-summary">
+      11 个组件，一页看完。每个都自带安装命令，签名组件
+      <a href="/docs/components/blueprint-grid">BlueprintGrid</a>
+      是别家没有的那个。
+    </p>
+  </header>
+
+  {
+    COMPONENTS.map((c) => (
+      <section class="comp" id={c.slug}>
+        <div class="w-bar">
+          <span class="w-bar__dots">
+            <i class="w-bar__dot w-bar__dot--on" />
+          </span>
+          <a class="w-bar__label" href={`/docs/components/${c.slug}`}>
+            {c.slug}.tsx
+          </a>
+          <span class="w-bar__label w-bar__label--cmd">
+            npx shadcn add https://weedui.dev/r/{c.slug}.json
+          </span>
+        </div>
+        <div class="comp__body">
+          <DemoHost client:visible slug={c.slug} />
+        </div>
+      </section>
+    ))
+  }
+</Base>
+
+<style>
+  .doc-head {
+    margin-bottom: 36px;
+  }
+  .doc-title {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-2xl);
+    font-weight: 400;
+    margin: 10px 0 12px;
+  }
+  .doc-summary {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-base);
+    color: var(--muted-foreground);
+    margin: 0;
+    max-width: 58ch;
+    line-height: var(--w-leading-prose);
+  }
+  .doc-summary a {
+    color: var(--primary);
+  }
+  .comp {
+    margin-bottom: 20px;
+    border-radius: var(--w-radius);
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .w-bar__label--cmd {
+    margin-left: auto;
+    color: var(--muted-foreground);
+    opacity: 0.75;
+  }
+  .w-bar a {
+    color: var(--primary);
+  }
+  .comp__body {
+    padding: 22px 20px;
+    background: var(--panel);
+  }
+</style>
