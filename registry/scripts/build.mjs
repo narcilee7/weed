@@ -1,15 +1,18 @@
 /**
  * registry:build — embed source file contents into registry item JSONs
- * and emit them to apps/web/public/r/ (served at https://weedui.dev/r/*).
+ * and emit them to apps/web/public/r/ (served at <site>/r/*).
  *
  * Equivalent to `npx shadcn registry:build`, but monorepo-aware and
  * deterministic: single script, no interactive CLI, correct output dir.
  *
  * Every registry:ui item is made SELF-CONTAINED: utils + the four theme
  * css files are injected alongside the component, so
- * `npx shadcn add https://weedui.dev/r/button.json` works with zero
+ * `npx shadcn add <site>/r/button.json` works with zero
  * pre-configuration. Files are idempotent — installing multiple
  * components re-writes identical shared files, no drift.
+ *
+ * <site> comes from the repo-root site.json — the single source of truth
+ * for every URL in this project.
  */
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { resolve, dirname } from "node:path";
@@ -17,6 +20,11 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const outDir = resolve(root, "apps/web/public/r");
+
+/** 站点身份 —— 单一事实源 */
+const site = JSON.parse(readFileSync(resolve(root, "site.json"), "utf8"));
+const SITE_ROOT = `${site.url}${site.base === "/" ? "" : site.base}`;
+const abs = (p) => `${SITE_ROOT}${p}`;
 
 const registry = JSON.parse(
   readFileSync(resolve(root, "registry/registry.json"), "utf8")
@@ -47,8 +55,8 @@ function docMeta(item) {
       anatomy: doc.anatomy ?? [],
       variants: doc.variants ?? [],
       api: doc.api ?? [],
-      docs: `https://weedui.dev/docs/components/${doc.slug}`,
-      markdown: `https://weedui.dev/docs/components/${doc.slug}.md`,
+      docs: abs(`/docs/components/${doc.slug}`),
+      markdown: abs(`/docs/components/${doc.slug}.md`),
     },
   };
 }
@@ -124,7 +132,7 @@ for (const item of registry.items) {
 const index = {
   $schema: "https://ui.shadcn.com/schema/registry.json",
   name: registry.name,
-  homepage: registry.homepage,
+  homepage: SITE_ROOT,
   items: registry.items.map((item) => {
     const meta = docMeta(item);
     return {

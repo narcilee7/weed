@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/site";
 import "../styles/global.css";
 
 const entries = (await getCollection("changelog")).sort(
@@ -19,7 +20,7 @@ const rendered = await Promise.all(
     <p class="w-eyebrow">changelog / log</p>
     <h1 class="page-title">更新日志</h1>
     <p class="page-sub">
-      <a href="/changelog.xml">changelog.xml ↗</a> — 订阅源在那儿。
+      <a href={withBase("/changelog.xml")}>changelog.xml ↗</a> — 订阅源在那儿。
     </p>
   </header>
 

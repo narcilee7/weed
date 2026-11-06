@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
+import { SITE_ROOT } from "../lib/site";
 
 export const prerender = true;
 
@@ -18,7 +19,7 @@ export const GET: APIRoute = async () => {
     out.push(body.trim());
     out.push("");
   }
-  out.push("订阅源：https://weedui.dev/changelog.xml");
+  out.push(`订阅源：${SITE_ROOT}/changelog.xml`);
   out.push("");
 
   return new Response(out.join("\n"), {

@@ -1,5 +1,6 @@
 ---
 import { ThemeToggle } from "@weed-ui/theme-toggle";
+import { withBase, stripBase, absolute } from "../lib/site";
 import "../styles/global.css";
 
 interface Props {
@@ -13,9 +14,10 @@ const {
   wide = false,
 } = Astro.props;
 
-const site = Astro.site ?? new URL("https://weedui.dev");
-const canonical = new URL(Astro.url.pathname, site);
-const path = Astro.url.pathname;
+const site = Astro.site ?? new URL(absolute("/"));
+/** 去掉 base 的站内路径，用来比对路由 */
+const path = stripBase(Astro.url.pathname);
+const canonical = new URL(withBase(path), site);
 /** 本页的纯文本孪生 —— 人和 agent 读到的是同一份事实 */
 const TWIN_ROUTES = new Set([
   "/",
@@ -61,23 +63,26 @@ const twin = path === "/" ? "/index.md" : `${path}.md`;
   </head>
   <body>
     <header class="site-header">
-      <a class="site-brand" href="/">
+      <a class="site-brand" href={withBase("/")}>
         <span class="site-brand__mark">weed</span>
         <span class="site-brand__path">~/weed</span>
       </a>
       <nav class="site-nav">
-        <a class:list={["site-tab", { active: path.startsWith("/docs") }]} href="/docs">
+        <a
+          class:list={["site-tab", { active: path.startsWith("/docs") }]}
+          href={withBase("/docs")}
+        >
           docs
         </a>
         <a
           class:list={["site-tab", { active: path.startsWith("/components") }]}
-          href="/components"
+          href={withBase("/components")}
         >
           components
         </a>
         <a
           class:list={["site-tab", { active: path.startsWith("/changelog") }]}
-          href="/changelog"
+          href={withBase("/changelog")}
         >
           changelog
         </a>
@@ -95,9 +100,9 @@ const twin = path === "/" ? "/index.md" : `${path}.md`;
     <footer class="site-footer">
       <span>© 2026 weed-ui · MIT</span>
       <span class="site-footer__links">
-        {hasTwin && <a href={twin}>本页 .md</a>}
-        <a href="/llms.txt">llms.txt</a>
-        <a href="/llms-full.txt">llms-full.txt</a>
+        {hasTwin && <a href={withBase(twin)}>本页 .md</a>}
+        <a href={withBase("/llms.txt")}>llms.txt</a>
+        <a href={withBase("/llms-full.txt")}>llms-full.txt</a>
       </span>
       <span class="site-footer__hint">
         <span class="text-[var(--w-c-prompt)]">$</span> components that grow anywhere

@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import DemoHost from "../demos/index";
 import { COMPONENTS } from "../data/components";
+import { withBase, installCmd } from "../lib/site";
 import "../styles/global.css";
 ---
 
@@ -14,7 +15,7 @@ import "../styles/global.css";
     <h1 class="doc-title">组件总览</h1>
     <p class="doc-summary">
       11 个组件，一页看完。每个都自带安装命令，签名组件
-      <a href="/docs/components/blueprint-grid">BlueprintGrid</a>
+      <a href={withBase("/docs/components/blueprint-grid")}>BlueprintGrid</a>
       是别家没有的那个。
     </p>
   </header>
@@ -26,11 +27,11 @@ import "../styles/global.css";
           <span class="w-bar__dots">
             <i class="w-bar__dot w-bar__dot--on" />
           </span>
-          <a class="w-bar__label" href={`/docs/components/${c.slug}`}>
+          <a class="w-bar__label" href={withBase(`/docs/components/${c.slug}`)}>
             {c.slug}.tsx
           </a>
           <span class="w-bar__label w-bar__label--cmd">
-            npx shadcn add https://weedui.dev/r/{c.slug}.json
+            {installCmd(c.slug)}
           </span>
         </div>
         <div class="comp__body">

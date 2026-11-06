@@ -3,6 +3,7 @@ import Docs from "../../../layouts/Docs.astro";
 import { CodeBlock } from "@weed-ui/code-block";
 import DemoHost from "../../../demos/index";
 import { COMPONENTS } from "../../../data/components";
+import { installCmd, withBase } from "../../../lib/site";
 import "../../../styles/global.css";
 
 export function getStaticPaths() {
@@ -22,7 +23,7 @@ const related = COMPONENTS.filter(
   (c) => c.slug !== component.slug && c.category === component.category
 ).slice(0, 3);
 
-const installCmd = `npx shadcn add https://weedui.dev/r/${component.slug}.json`;
+const install = installCmd(component.slug);
 ---
 
 <Docs title={`${component.title} · weed docs`} description={component.summary}>
@@ -46,7 +47,7 @@ const installCmd = `npx shadcn add https://weedui.dev/r/${component.slug}.json`;
 
   <!-- install -->
   <section class="doc-section">
-    <CodeBlock client:visible language="BASH" filename="terminal" prompt code={installCmd} />
+    <CodeBlock client:visible language="BASH" filename="terminal" prompt code={install} />
   </section>
 
   <!-- demo: both modes -->
@@ -194,7 +195,7 @@ const installCmd = `npx shadcn add https://weedui.dev/r/${component.slug}.json`;
         <p class="w-eyebrow sec-label">related</p>
         <div class="chip-row">
           {related.map((r) => (
-            <a class="doc-chip doc-chip--link" href={`/docs/components/${r.slug}`}>
+            <a class="doc-chip doc-chip--link" href={withBase(`/docs/components/${r.slug}`)}>
               {r.title}
             </a>
           ))}

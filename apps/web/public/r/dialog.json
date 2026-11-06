@@ -46,8 +46,8 @@
         "type": "(open: boolean) => void"
       }
     ],
-    "docs": "https://weedui.dev/docs/components/dialog",
-    "markdown": "https://weedui.dev/docs/components/dialog.md"
+    "docs": "https://narcilee7.github.io/weed/docs/components/dialog",
+    "markdown": "https://narcilee7.github.io/weed/docs/components/dialog.md"
   },
   "dependencies": [
     "@radix-ui/react-dialog",

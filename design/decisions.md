@@ -124,3 +124,27 @@ item 里不再声明 `registryDependencies`——因为裸名会解析到 shadcn
 但现在只有 18 个页面，加了也只是摆设。
 
 *何时重新考虑*：页面数超过 40，或有人开始抱怨"找不到某个组件"。
+
+---
+
+## D-011 · 站点身份单一事实源 = 仓库根的 `site.json`
+
+**状态**：`accepted` · **时间**：2026-11-07
+
+站点先部署在 GitHub Pages（项目站，挂在 `/weed` 子路径下），域名 `weedui.dev`
+还没买。为了让"换域名"和"换部署路径"都只动一处，加了根级 `site.json`：
+
+```json
+{ "url": "https://narcilee7.github.io", "base": "/weed" }
+```
+
+canonical、sitemap、robots、安装命令、registry item 的 `meta.docs`、
+agent 索引（`llms.txt` / `llms-full.txt` / `.md` 孪生）全部从它推导。
+Astro 的 `site` / `base`、registry 构建脚本、页面模板共用同一份。
+
+子路径的坑：Astro 的 `base` **不会**自动改写模板里手写的 `href="/docs"`，
+必须显式加前缀（`src/lib/site.ts` 的 `withBase()`）；RSS 的相对链接会绕开
+base 解析到 origin 根，所以 item 链接必须是绝对 URL。
+
+*何时重新考虑*：如果站点拆成多个域名（文档站独立），单一 origin 不再成立，
+就把 `site.json` 拆成按用途的多个入口。

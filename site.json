@@ -1,0 +1,6 @@
+{
+  "$description": "站点身份 —— 全站 URL 的单一事实源。canonical / sitemap / 安装命令 / registry 元数据 / agent 索引都从这里推导，换域名只改这一处。",
+  "url": "https://narcilee7.github.io",
+  "base": "/weed",
+  "$comment": "GitHub Pages 项目站，站点挂在 /weed 子路径下。域名 weedui.dev 上线后：url 改成 https://weedui.dev、base 改成 /，全站链接与安装命令自动跟着变。"
+}

@@ -2,6 +2,7 @@
 import Docs from "../../layouts/Docs.astro";
 import { CodeBlock } from "@weed-ui/code-block";
 import { COMPONENTS } from "../../data/components";
+import { withBase, installCmd } from "../../lib/site";
 import "../../styles/global.css";
 ---
 
@@ -23,11 +24,11 @@ import "../../styles/global.css";
       language="BASH"
       filename="~/weed"
       prompt
-      code={`npx shadcn add https://weedui.dev/r/button.json`}
+      code={installCmd("button")}
     />
     <p class="doc-note">
       每个组件自包含：主题 token 与 cn() 工具随组件一起落地，单 URL 安装零配置。
-      装三个以上建议改用 namespace，见 <a href="/docs/installation">installation</a>。
+      装三个以上建议改用 namespace，见 <a href={withBase("/docs/installation")}>installation</a>。
     </p>
   </section>
 
@@ -36,7 +37,7 @@ import "../../styles/global.css";
     <div class="comp-list">
       {
         COMPONENTS.map((c) => (
-          <a class="comp-row" href={`/docs/components/${c.slug}`}>
+          <a class="comp-row" href={withBase(`/docs/components/${c.slug}`)}>
             <span class="comp-row__name">
               {c.slug}
               {c.signature && <span class="file__star">★</span>}
@@ -53,7 +54,7 @@ import "../../styles/global.css";
     <p class="w-eyebrow sec-label">design language</p>
     <p class="doc-note">
       等宽字面、暖暗大地色、蓝图网格——识别度的来源与定制入口见
-      <a href="/docs/theming">theming</a>。改动原则记录在仓库的
+      <a href={withBase("/docs/theming")}>theming</a>。改动原则记录在仓库的
       <code class="doc-chip">design/principles.md</code>。
     </p>
   </section>

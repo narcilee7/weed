@@ -68,8 +68,8 @@
         "default": "false"
       }
     ],
-    "docs": "https://weedui.dev/docs/components/button",
-    "markdown": "https://weedui.dev/docs/components/button.md"
+    "docs": "https://narcilee7.github.io/weed/docs/components/button",
+    "markdown": "https://narcilee7.github.io/weed/docs/components/button.md"
   },
   "dependencies": [
     "class-variance-authority"

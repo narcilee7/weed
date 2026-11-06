@@ -2,6 +2,7 @@
 import { CodeBlock } from "@weed-ui/code-block";
 import Base from "../layouts/Base.astro";
 import { COMPONENTS } from "../data/components";
+import { withBase, installCmd, registryUrl } from "../lib/site";
 import "../styles/global.css";
 ---
 
@@ -23,14 +24,14 @@ import "../styles/global.css";
         language="BASH"
         filename="~/weed"
         prompt
-        code={`npx shadcn add https://weedui.dev/r/button.json`}
+        code={installCmd("button")}
       />
     </div>
 
     <nav class="hero-nav w-mono">
-      <a href="/docs">docs</a>
-      <a href="/components">components</a>
-      <a href="/docs/theming">theming</a>
+      <a href={withBase("/docs")}>docs</a>
+      <a href={withBase("/components")}>components</a>
+      <a href={withBase("/docs/theming")}>theming</a>
       <a href="https://github.com/narcilee7/weed" target="_blank" rel="noreferrer">github ↗</a>
     </nav>
   </section>
@@ -77,13 +78,15 @@ import "../styles/global.css";
     <div class="w-bar">
       <span class="w-bar__dots"><i class="w-bar__dot w-bar__dot--on" /></span>
       <span class="w-bar__label">components/</span>
-      <span class="w-bar__label" style="margin-left:auto">npx shadcn add https://weedui.dev/r/&lt;name&gt;.json</span>
+      <span class="w-bar__label" style="margin-left:auto">
+        npx shadcn add {registryUrl("<name>")}
+      </span>
     </div>
     <ul class="file-list w-mono">
       {
         COMPONENTS.map((c) => (
           <li class="file">
-            <a class="file__name" href={`/docs/components/${c.slug}`}>
+            <a class="file__name" href={withBase(`/docs/components/${c.slug}`)}>
               {c.slug}.tsx
             </a>
             {c.signature && <span class="file__star">★</span>}

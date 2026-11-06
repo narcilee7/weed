@@ -96,21 +96,25 @@ Button · Input · Card · Badge · Tabs · Table · Dialog · Tooltip · CodeBl
 | X / 即刻 / V2EX | showcase 截图传播 | P1 |
 | Product Hunt | v1.0 时冲一波 | P2 |
 
-namespace：`@weed-ui`（2026-11-06 拍板）。仓库暂挂在个人账号 **[narcilee7/weed](https://github.com/narcilee7/weed)**（已公开）；GitHub org `weed-ui` 名仍未被占用，后续注册以承载 registry 与官方 PR。域名 **`weedui.dev`**（拍板，RDAP 确认可注册，需尽快购买；备选 `weed-ui.dev` / `weeds.sh` 均可注册；`weed-ui.com` 已被占）。
+namespace：`@weed-ui`（2026-11-06 拍板）。仓库暂挂在个人账号 **[narcilee7/weed](https://github.com/narcilee7/weed)**（已公开）；GitHub org `weed-ui` 名仍未被占用，后续注册以承载 registry 与官方 PR。域名 **`weedui.dev`**（拍板，RDAP 确认可注册，需尽快购买；备选 `weed-ui.dev` / `weeds.sh` 均可注册；`weed-ui.com` 已被占）。域名到手前，站点跑在 GitHub Pages：`https://narcilee7.github.io/weed/`。
 
 ---
 
 ## 6. 站点架构（单域双区，一域三职）
 
 ```
-weed.dev/         产品站：审美宣言 + hero demo + 安装命令 + OG 图
-weed.dev/docs     文档站：每组件一页，SSG 全静态，可全文检索
-weed.dev/r/*      registry JSON 输出（与站同域，零额外基建）
-weed.dev/changelog.xml   RSS
-weed.dev/llms.txt        AI 爬虫入口
+narcilee7.github.io/weed/              产品站：审美宣言 + hero demo + 安装命令 + OG 图
+narcilee7.github.io/weed/docs          文档站：每组件一页，SSG 全静态，可全文检索
+narcilee7.github.io/weed/r/*           registry JSON 输出（与站同域，零额外基建）
+narcilee7.github.io/weed/changelog.xml RSS
+narcilee7.github.io/weed/llms.txt      AI 爬虫入口
 ```
 
 **为什么是单域**：域名权重集中、一套基建、维护成本减半。产品站与文档站职责分离但同栈。
+
+**站点身份是单一事实源**：仓库根的 `site.json` 记着 origin 与 base，
+canonical / sitemap / 安装命令 / registry 元数据 / agent 索引全部从它推导。
+换域名（`weedui.dev`）只改这一个文件，站点内容一行不动。
 
 **技术选型**：Astro + React islands。三个硬需求：SSG/SEO 完整（默认零 JS）、React island 渲染组件 live demo（按需水合）、llms.txt / RSS / sitemap 生态标配。产品页 `/` 脱离模板手写，可无限 fancy。文档站不用 Fumadocs（其绑死 Next.js），M3 时评估 Starlight 或手搓 mdx 集合。
 
@@ -126,6 +130,7 @@ weed/                     pnpm monorepo
 ├── design/               设计原则（principles.md）+ 决策日志（decisions.md）
 ├── packages/tokens/      设计语言单一事实源（tokens.json → CSS / Tailwind preset / tweakcn JSON）
 ├── registry/             组件源码（shadcn registry 格式，registry:build 产物进 apps/web/public/r）
+├── site.json             站点身份单一事实源（origin + base）
 └── apps/web/src/         文档内容（docs 页面 + changelog 集合 + 组件目录 + markdown 生成器）
 ```
 
@@ -159,7 +164,7 @@ weed/                     pnpm monorepo
 |---|---|---|---|
 | M1 设计语言 | tokens 规范 + 字体接入 + 双主题 | 一份 token 文档 + 一个能切主题的 demo 页 | ✅ 2026-11-06 |
 | M2 组件基座 | 10+1 组件 + registry 可安装 | `npx shadcn add` 从本地 registry 装上 Button | ✅ 2026-11-06 |
-| M3 站点 | 产品页 + 文档站 + registry 同域服务 | 线上可访问、组件页可索引 | ✅ 2026-11-07（待上线） |
+| M3 站点 | 产品页 + 文档站 + registry 同域服务 | 线上可访问、组件页可索引 | ✅ 2026-11-07（GitHub Pages 上线） |
 | M4 收录分发 | 官方 directory PR + tweakcn 上架 | `npx shadcn search` 能搜到 weed | ⏳ 待域名/上线 |
 
 M3 补充说明：产品页 `/`（审美宣言 + hero demo + 安装命令）、文档站 `/docs`（概述 / 安装 / 主题与 Token + 每组件一页 live demo 与完整源码）、组件总览 `/components`、changelog 页 + RSS（`/changelog.xml`）、`/llms.txt`、`/robots.txt`、sitemap。
@@ -167,6 +172,10 @@ M3 补充说明：产品页 `/`（审美宣言 + hero demo + 安装命令）、�
 **v0.2 补齐项**（2026-11-07）：设计语言整体转向终端 / IDE 风并全站重做；token 单一事实源改为 DTCG JSON + 生成器（`pnpm tokens:check` 挡住漂移）；新增 `design/principles.md` + `design/decisions.md`；新增 `/llms-full.txt` 与每页 `.md` 孪生（由 `src/data/markdown.ts` 生成）。
 
 **待补**：每页 OG 图（组件渲染截图自动生成）、站内全文检索（Pagefind，D-010 暂缓）、域名购买与 GitHub org 注册（仓库暂挂在 narcilee7/weed）。
+
+**部署现状（2026-11-07）**：站点已上线 GitHub Pages —— `https://narcilee7.github.io/weed/`，
+由 `.github/workflows/pages.yml` 在 push 到 `master` 时自动构建发布（静态产物 → `apps/web/dist`）。
+域名 `weedui.dev` 买下来后，改 `site.json` 两个字段 + 配 DNS CNAME 即可切过去。
 
 ---
 

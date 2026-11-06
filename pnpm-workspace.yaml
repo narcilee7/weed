@@ -2,3 +2,8 @@ packages:
   - apps/*
   - packages/*
   - registry
+
+# pnpm 10 默认拦截依赖的构建脚本；这两个需要跑自己的 install 才能拿到平台二进制。
+onlyBuiltDependencies:
+  - esbuild
+  - sharp

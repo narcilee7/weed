@@ -54,8 +54,8 @@
         "default": "\"muted\""
       }
     ],
-    "docs": "https://weedui.dev/docs/components/badge",
-    "markdown": "https://weedui.dev/docs/components/badge.md"
+    "docs": "https://narcilee7.github.io/weed/docs/components/badge",
+    "markdown": "https://narcilee7.github.io/weed/docs/components/badge.md"
   },
   "dependencies": [
     "class-variance-authority"

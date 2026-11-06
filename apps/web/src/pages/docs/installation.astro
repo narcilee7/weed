@@ -1,6 +1,7 @@
 ---
 import Docs from "../../layouts/Docs.astro";
 import { CodeBlock } from "@weed-ui/code-block";
+import { withBase, installCmd, registryTemplate } from "../../lib/site";
 import "../../styles/global.css";
 ---
 
@@ -20,7 +21,7 @@ import "../../styles/global.css";
       language="BASH"
       filename="~/weed"
       prompt
-      code={`npx shadcn add https://weedui.dev/r/button.json`}
+      code={installCmd("button")}
     />
     <p class="doc-note">
       组件自带主题 token（styles/weed-ui/*.css）、cn()（lib/utils.ts）与 npm 依赖。
@@ -37,7 +38,7 @@ import "../../styles/global.css";
       filename="components.json"
       code={`{
   "registries": {
-    "@weed-ui": "https://weedui.dev/r/{name}.json"
+    "@weed-ui": "${registryTemplate}"
   }
 }`}
     />
@@ -95,7 +96,7 @@ npx shadcn add @weed-ui/tabs @weed-ui/dialog`}
 </script>`}
     />
     <p class="doc-note">
-      然后放上 <a href="/docs/components/theme-toggle">ThemeToggle</a>，完事。
+      然后放上 <a href={withBase("/docs/components/theme-toggle")}>ThemeToggle</a>，完事。
       深浅主题语义 token 全覆盖，组件层零改动。
     </p>
   </section>

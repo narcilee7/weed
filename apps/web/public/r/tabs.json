@@ -43,8 +43,8 @@
         "default": "—（非受控时必填）"
       }
     ],
-    "docs": "https://weedui.dev/docs/components/tabs",
-    "markdown": "https://weedui.dev/docs/components/tabs.md"
+    "docs": "https://narcilee7.github.io/weed/docs/components/tabs",
+    "markdown": "https://narcilee7.github.io/weed/docs/components/tabs.md"
   },
   "dependencies": [
     "@radix-ui/react-tabs"

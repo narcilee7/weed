@@ -1,6 +1,7 @@
 ---
 import Base from "./Base.astro";
 import { COMPONENTS, CATEGORIES } from "../data/components";
+import { withBase, stripBase } from "../lib/site";
 
 interface Props {
   title: string;
@@ -13,7 +14,7 @@ const guides = [
   { href: "/docs/installation", label: "installation" },
   { href: "/docs/theming", label: "theming" },
 ];
-const path = Astro.url.pathname;
+const path = stripBase(Astro.url.pathname);
 ---
 
 <Base title={title} description={description} wide>
@@ -27,7 +28,7 @@ const path = Astro.url.pathname;
           guides.map((g) => (
             <a
               class:list={["docs-nav__item", { active: path === g.href }]}
-              href={g.href}
+              href={withBase(g.href)}
             >
               <span class="docs-nav__branch">├─</span>
               {g.label}
@@ -50,7 +51,7 @@ const path = Astro.url.pathname;
                       "docs-nav__item",
                       { active: path === `/docs/components/${c.slug}` },
                     ]}
-                    href={`/docs/components/${c.slug}`}
+                    href={withBase(`/docs/components/${c.slug}`)}
                   >
                     <span class="docs-nav__branch">├─</span>
                     {c.slug}
