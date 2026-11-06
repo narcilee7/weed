@@ -1,0 +1,28 @@
+{
+  "name": "weed-dark",
+  "label": "weed · dark (warm black)",
+  "radius": "0.1875rem",
+  "cssVars": {
+    "dark": {
+      "background": "oklch(0.145 0.004 67.5)",
+      "foreground": "oklch(0.911 0.013 82.4)",
+      "card": "oklch(0.263 0.023 259.3)",
+      "card-foreground": "oklch(0.911 0.013 82.4)",
+      "popover": "oklch(0.225 0.016 255)",
+      "popover-foreground": "oklch(0.911 0.013 82.4)",
+      "primary": "oklch(0.683 0.087 245.2)",
+      "primary-foreground": "oklch(0.16 0.012 248.5)",
+      "secondary": "oklch(0.205 0.014 255)",
+      "secondary-foreground": "oklch(0.911 0.013 82.4)",
+      "muted": "oklch(0.205 0.014 255)",
+      "muted-foreground": "oklch(0.62 0.014 82)",
+      "accent": "oklch(0.683 0.087 245.2)",
+      "accent-foreground": "oklch(0.16 0.012 248.5)",
+      "destructive": "oklch(0.582 0.109 60.4)",
+      "destructive-foreground": "oklch(0.951 0.016 82.8)",
+      "border": "oklch(0.31 0.012 252)",
+      "input": "oklch(0.395 0.016 252)",
+      "ring": "oklch(0.683 0.087 245.2)"
+    }
+  }
+}

@@ -1,0 +1,184 @@
+/**
+ * weed blueprint + terminal utilities — v0.2
+ *
+ * 蓝图网格：保留为纹理，但降噪（v0.2 只做"能感觉到"的密度），
+ * 主要出现在 hero 与签名组件里，不铺满全站。
+ *
+ * Hairlines 一律用 box-shadow 实现（非 border）：
+ * border 会占盒模型尺寸，和圆角叠加时产生缺口。
+ */
+
+/* ---------------------------------------------------------------- */
+/* blueprint grid                                                    */
+/* ---------------------------------------------------------------- */
+.w-blueprint {
+  position: relative;
+  background-color: var(--background);
+  isolation: isolate;
+}
+
+.w-blueprint::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background-image:
+    /* cross dots at major intersections */
+    radial-gradient(var(--grid-dot) 0.8px, transparent 1.2px),
+    /* minor grid — 20px */
+    linear-gradient(to right, var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-minor) 1px, transparent 1px),
+    /* major grid — 100px, 双档线重 */
+    linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px);
+
+  background-size:
+    100px 100px,
+    20px 20px,
+    20px 20px,
+    100px 100px,
+    100px 100px;
+
+  background-position:
+    -0.5px -0.5px,
+    0 0,
+    0 0,
+    0 0,
+    0 0;
+
+  -webkit-mask-image: var(--grid-fade);
+  mask-image: var(--grid-fade);
+}
+
+/* full-bleed variant: gentler fade */
+.w-blueprint--flat::before {
+  -webkit-mask-image: radial-gradient(
+    ellipse 140% 100% at 50% 0%,
+    black 0%,
+    black 45%,
+    transparent 90%
+  );
+  mask-image: radial-gradient(
+    ellipse 140% 100% at 50% 0%,
+    black 0%,
+    black 45%,
+    transparent 90%
+  );
+}
+
+/* ---------------------------------------------------------------- */
+/* terminal / IDE primitives                                         */
+/* ---------------------------------------------------------------- */
+
+/* 实底面板 + hairline */
+.w-panel {
+  background: var(--panel);
+  border-radius: var(--w-radius);
+  box-shadow: var(--w-hairline);
+}
+
+.w-panel--soft {
+  background: var(--panel-soft);
+}
+
+/* 窗口标题栏：像编辑器 tab / 终端 tab */
+.w-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 30px;
+  padding: 0 12px;
+  background: var(--w-c-chrome);
+  border-radius: var(--w-radius) var(--w-radius) 0 0;
+  box-shadow: inset 0 -1px 0 var(--line);
+  font-family: var(--w-font-mono);
+  font-size: var(--w-text-xs);
+  color: var(--w-c-chrome-fg);
+}
+
+.w-bar__dots {
+  display: inline-flex;
+  gap: 5px;
+}
+.w-bar__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--line-strong);
+  background: transparent;
+}
+.w-bar__dot--on {
+  background: var(--ochre);
+  box-shadow: none;
+}
+.w-bar__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 终端提示符 */
+.w-prompt::before {
+  content: "$ ";
+  color: var(--w-c-prompt);
+}
+
+/* 光标 */
+.w-caret::after {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--w-c-caret);
+  vertical-align: text-bottom;
+  animation: w-blink 1.1s steps(2, start) infinite;
+}
+@keyframes w-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* 分隔线 */
+.w-rule {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* typography helpers                                                */
+/* ---------------------------------------------------------------- */
+.w-mono {
+  font-family: var(--w-font-mono);
+  font-size: var(--w-text-sm);
+  letter-spacing: var(--w-tracking-label);
+}
+.w-serif {
+  font-family: var(--w-font-serif);
+  font-size: var(--w-text-base);
+  line-height: var(--w-leading-prose);
+}
+.w-eyebrow {
+  font-family: var(--w-font-mono);
+  font-size: var(--w-text-xs);
+  letter-spacing: var(--w-tracking-label);
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* hairline utilities */
+.w-hairline {
+  box-shadow: var(--w-hairline);
+}
+.w-hairline-strong {
+  box-shadow: var(--w-hairline-strong);
+}
+
+::selection {
+  background: var(--w-c-selection);
+}

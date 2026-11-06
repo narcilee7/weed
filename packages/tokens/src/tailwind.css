@@ -1,0 +1,53 @@
+/**
+ * GENERATED FILE — 请勿手改。
+ * source: packages/tokens/tokens.json
+ * build:  pnpm tokens:build
+ */
+
+/* Usage:
+ *   @import "tailwindcss";
+ *   @import "@weed/tokens/tailwind.css";   ← this file
+ * 颜色全部指向语义变量，data-theme 切换零配置。
+ */
+
+@theme inline {
+  /* shadcn-compatible surface */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* weed extensions */
+  --color-panel: var(--panel);
+  --color-panel-soft: var(--panel-soft);
+  --color-panel-foreground: var(--panel-foreground);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ochre: var(--ochre);
+  --color-wheat: var(--wheat);
+  --color-sage: var(--sage);
+
+  /* fonts */
+  --font-mono: var(--w-font-mono);
+  --font-serif: var(--w-font-serif);
+
+  /* radii — small, engineering-manual */
+  --radius-sm: var(--w-radius-sm);
+  --radius-md: var(--w-radius);
+  --radius-lg: calc(var(--w-radius) + 2px);
+}

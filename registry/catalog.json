@@ -1,0 +1,219 @@
+{
+  "$description": "weed 组件目录 —— 单一事实源。站点文档、registry 元数据、agent 索引全部从这里读。新增组件先改这里。",
+  "items": [
+    {
+      "slug": "button",
+      "title": "Button",
+      "summary": "触发一次动作。终端里最常见的动词。",
+      "description": "mono 大写、3px 圆角、实心面板 + 内描边。default 是 accent 实心，outline 是描边面板，ghost/subtle 无边框。",
+      "category": "Actions",
+      "status": "stable",
+      "alsoCalled": ["CTA", "动作按钮"],
+      "whenToUse": [
+        "提交表单、触发下载、确认删除——任何有副作用的动作。",
+        "一个视图里只能有一个 default 变体，其余都是 outline 或 ghost。"
+      ],
+      "insteadOf": [
+        ["页面跳转（链接应该像链接）", "用 <a>，别用 Button 装 href"],
+        ["开关某项设置", "用 Switch / Checkbox，别用 Button 假装成开关"]
+      ],
+      "anatomy": ["Button", "buttonVariants"],
+      "variants": [
+        { "name": "default", "description": "accent 实心，主操作" },
+        { "name": "outline", "description": "实心面板 + 内描边，次操作" },
+        { "name": "ghost", "description": "无边框，悬停才显形" },
+        { "name": "subtle", "description": "浅底填充，表格行内操作用" }
+      ],
+      "npmDeps": ["class-variance-authority"],
+      "api": [
+        { "prop": "variant", "type": "\"default\" | \"outline\" | \"ghost\" | \"subtle\"", "default": "\"outline\"" },
+        { "prop": "size", "type": "\"sm\" | \"default\" | \"lg\" | \"icon\"", "default": "\"default\"" },
+        { "prop": "disabled", "type": "boolean", "default": "false" }
+      ]
+    },
+    {
+      "slug": "input",
+      "title": "Input",
+      "summary": "单行文本录入。",
+      "description": "等宽字面、内描边、背景比面板更暗（像终端输入行）。focus 时描边换 accent 并加一层 2px 光晕。",
+      "category": "Forms",
+      "status": "stable",
+      "alsoCalled": ["输入框", "text field"],
+      "whenToUse": ["单行文本：姓名、路径、命令、邮箱。"],
+      "insteadOf": [["多行文本", "用 textarea，别硬撑 Input"]],
+      "anatomy": ["Input"],
+      "api": [
+        { "prop": "type", "type": "string", "default": "\"text\"" },
+        { "prop": "placeholder", "type": "string" },
+        { "prop": "disabled", "type": "boolean", "default": "false" }
+      ]
+    },
+    {
+      "slug": "card",
+      "title": "Card",
+      "summary": "把一块内容装进有边界的面板。",
+      "description": "IDE 面板：实心底 + 1px 内描边，标题栏是次级底色并带分隔线，标题 mono 13px。",
+      "category": "Layout",
+      "status": "stable",
+      "alsoCalled": ["面板", "容器"],
+      "whenToUse": ["一组有明确边界的信息：设置项、统计、组件预览。"],
+      "insteadOf": [["只是想让文字浅一点", "改文字颜色，别套面板"]],
+      "anatomy": [
+        "Card",
+        "CardHeader",
+        "CardTitle",
+        "CardDescription",
+        "CardContent",
+        "CardFooter"
+      ],
+      "api": [{ "prop": "className", "type": "string" }]
+    },
+    {
+      "slug": "badge",
+      "title": "Badge",
+      "summary": "给一个对象贴状态标签。",
+      "description": "10.5px mono 大写，2px 圆角。三色信号对应三种语气：赭石=警告、鼠尾草=成功、麦黄=提示。",
+      "category": "Display",
+      "status": "stable",
+      "alsoCalled": ["标签", "tag", "pill"],
+      "whenToUse": ["状态、版本号、计数——需要一眼分类的短标签。"],
+      "insteadOf": [["点击即筛选", "用 FilterChip，别用不可点的 Badge"]],
+      "anatomy": ["Badge", "badgeVariants"],
+      "variants": [
+        { "name": "default", "description": "accent 实心" },
+        { "name": "muted", "description": "浅底，默认语气" },
+        { "name": "outline", "description": "描边，弱化" },
+        { "name": "ochre / sage / wheat", "description": "信号色：警告 / 成功 / 提示" }
+      ],
+      "npmDeps": ["class-variance-authority"],
+      "api": [
+        { "prop": "variant", "type": "\"default\" | \"muted\" | \"outline\" | \"ochre\" | \"sage\" | \"wheat\"", "default": "\"muted\"" }
+      ]
+    },
+    {
+      "slug": "tabs",
+      "title": "Tabs",
+      "summary": "同一组内容的多个视图。",
+      "description": "编辑器式 tab：激活项顶部一条 accent 线、底色提亮，标签 mono 大写 11px。",
+      "category": "Layout",
+      "status": "stable",
+      "alsoCalled": ["选项卡", "tab bar"],
+      "whenToUse": ["同一对象的多个视图：源码 / 示例 / API。"],
+      "insteadOf": [["内容之间要来回跳", "用并列区块，别用 Tabs"]],
+      "anatomy": ["Tabs", "TabsList", "TabsTrigger", "TabsContent"],
+      "npmDeps": ["@radix-ui/react-tabs"],
+      "api": [
+        { "prop": "value", "type": "string", "default": "—（受控必填）" },
+        { "prop": "defaultValue", "type": "string", "default": "—（非受控时必填）" }
+      ]
+    },
+    {
+      "slug": "table",
+      "title": "Table",
+      "summary": "成行的结构化数据。",
+      "description": "12px 等宽字面。表头是浅底大写字，行分隔用 inset box-shadow（不是 border），悬停整行提亮。",
+      "category": "Display",
+      "status": "stable",
+      "alsoCalled": ["数据表"],
+      "whenToUse": ["三列以上、需要在同一行里横向对比的数据。"],
+      "insteadOf": [["两三行键值对", "用 description list，别用 Table"]],
+      "anatomy": [
+        "Table",
+        "TableHeader",
+        "TableBody",
+        "TableRow",
+        "TableHead",
+        "TableCell"
+      ],
+      "api": [{ "prop": "className", "type": "string" }]
+    },
+    {
+      "slug": "dialog",
+      "title": "Dialog",
+      "summary": "打断式模态，需要用户处理完才能继续。",
+      "description": "实底浮层 + 1px 描边 + 大投影。标题 mono 13px，底部操作区有顶部分隔线。",
+      "category": "Overlays",
+      "status": "stable",
+      "alsoCalled": ["弹窗", "modal"],
+      "whenToUse": ["必须先处理才能继续的短流程：确认、填写一小段信息。"],
+      "insteadOf": [["内容很多", "用独立页面，别把长表单塞进 Dialog"]],
+      "anatomy": [
+        "Dialog",
+        "DialogTrigger",
+        "DialogContent",
+        "DialogHeader",
+        "DialogTitle",
+        "DialogDescription",
+        "DialogFooter",
+        "DialogClose"
+      ],
+      "npmDeps": ["@radix-ui/react-dialog", "lucide-react"],
+      "api": [
+        { "prop": "open", "type": "boolean", "default": "false" },
+        { "prop": "onOpenChange", "type": "(open: boolean) => void" }
+      ]
+    },
+    {
+      "slug": "tooltip",
+      "title": "Tooltip",
+      "summary": "补充说明，鼠标悬停出现。",
+      "description": "10.5px mono，2px 圆角，浮层底色 + 描边。延迟 100ms 显示。",
+      "category": "Overlays",
+      "status": "stable",
+      "alsoCalled": ["提示", "hint"],
+      "whenToUse": ["给图标按钮补一句说明。"],
+      "insteadOf": [["承载关键信息", "别放 Tooltip，键盘和触屏用户看不到"]],
+      "anatomy": ["Tooltip", "TooltipTrigger", "TooltipContent", "TooltipProvider"],
+      "npmDeps": ["@radix-ui/react-tooltip"],
+      "api": [
+        { "prop": "sideOffset", "type": "number", "default": "6" },
+        { "prop": "delayDuration", "type": "number", "default": "100" }
+      ]
+    },
+    {
+      "slug": "code-block",
+      "title": "CodeBlock",
+      "summary": "代码与命令的容器。",
+      "description": "终端窗口：顶部标签栏（可带 $ 提示符）+ copy 按钮，正文等宽，背景比面板更暗。",
+      "category": "Display",
+      "status": "stable",
+      "alsoCalled": ["代码块", "code block", "pre"],
+      "whenToUse": ["展示命令、配置、源码片段。"],
+      "insteadOf": [["逐行对照讲解", "用表格或列表，别把代码块当文章"]],
+      "anatomy": ["CodeBlock"],
+      "api": [
+        { "prop": "code", "type": "string", "default": "—（或用 children 传内容）" },
+        { "prop": "filename", "type": "string" },
+        { "prop": "language", "type": "string" },
+        { "prop": "prompt", "type": "boolean", "default": "false" }
+      ]
+    },
+    {
+      "slug": "theme-toggle",
+      "title": "ThemeToggle",
+      "summary": "dark / light 一键切换。",
+      "description": "写 html[data-theme] + localStorage。消费方需在 <head> 内联无闪烁 bootstrap，否则首帧会闪一下。",
+      "category": "Actions",
+      "status": "stable",
+      "alsoCalled": ["主题切换", "dark mode toggle"],
+      "whenToUse": ["给用户一个明确的模式切换入口。"],
+      "insteadOf": [["跟随系统就够了", "那就别放按钮，只做 bootstrap"]],
+      "anatomy": ["ThemeToggle"],
+      "api": [{ "prop": "className", "type": "string" }]
+    },
+    {
+      "slug": "blueprint-grid",
+      "title": "BlueprintGrid",
+      "summary": "蓝图网格背景容器。别家没有的那个。",
+      "description": "20px 小格 + 100px 双档粗线 + accent 交叉点 + 径向渐隐。签名组件，用作 hero 与空态的背景纹理。",
+      "category": "Layout",
+      "status": "beta",
+      "signature": true,
+      "alsoCalled": ["蓝图网格", "blueprint"],
+      "whenToUse": ["给大面积留白一点工程图纸的纹理。"],
+      "insteadOf": [["内容区密集区", "网格会干扰阅读，正文区别用"]],
+      "anatomy": ["BlueprintGrid"],
+      "api": [{ "prop": "flat", "type": "boolean", "default": "false" }]
+    }
+  ]
+}

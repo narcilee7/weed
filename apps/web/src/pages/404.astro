@@ -1,0 +1,75 @@
+---
+import Base from "../layouts/Base.astro";
+import "../styles/global.css";
+---
+
+<Base title="404 · weed" description="这条路径上没有野草。">
+  <section class="nf">
+    <p class="w-eyebrow">error 404 · not found</p>
+    <h1 class="nf-title">这块地没长出东西<span class="w-caret" /></h1>
+    <p class="nf-sub">
+      页面不存在。回到 <a href="/">产品页</a> 或者去
+      <a href="/docs">文档</a> 看看能装什么。
+    </p>
+    <div class="nf-term">
+      <div class="w-bar">
+        <span class="w-bar__dots"><i class="w-bar__dot w-bar__dot--on" /></span>
+        <span class="w-bar__label">bash</span>
+      </div>
+      <pre class="nf-code"><span class="nf-prompt">$</span> ls ./missing
+ls: ./missing: No such file or directory
+
+<span class="nf-prompt">$</span> cd /
+<span class="nf-prompt">$</span> tree -L 1
+.
+├── docs
+├── components
+└── index.html</pre>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .nf-title {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-2xl);
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 12px 0 14px;
+  }
+  .nf-sub {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-base);
+    color: var(--muted-foreground);
+    max-width: 46ch;
+    line-height: var(--w-leading-prose);
+    margin: 0;
+  }
+  .nf-sub a {
+    color: var(--primary);
+  }
+  .nf-term {
+    margin-top: 28px;
+    max-width: 460px;
+    border-radius: var(--w-radius);
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .nf-code {
+    margin: 0;
+    padding: 14px 16px 16px;
+    background: var(--w-c-code-bg);
+    color: var(--w-c-code-fg);
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-sm);
+    line-height: 1.7;
+    overflow-x: auto;
+  }
+  .nf-prompt {
+    color: var(--w-c-prompt);
+  }
+</style>

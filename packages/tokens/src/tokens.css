@@ -1,0 +1,164 @@
+/**
+ * GENERATED FILE — 请勿手改。
+ * source: packages/tokens/tokens.json
+ * build:  pnpm tokens:build
+ */
+
+/* ------------------------------------------------------------------ */
+/* Tier 1 · primitives — 原料色                                        */
+/* ------------------------------------------------------------------ */
+:root {
+  /* warm ink scale */
+  --w-ink-500: oklch(0.517 0.022 80); /* #6f675a */
+  --w-ink-700: oklch(0.254 0.012 78); /* #26221c */
+  --w-ink-900: oklch(0.179 0.005 67.5); /* #13110f */
+  --w-ink-950: oklch(0.156 0.005 67.4); /* #0e0c0a */
+
+  /* bone scale */
+  --w-bone-50: oklch(0.98 0.01 87.5); /* #fbf8f1 */
+  --w-bone-100: oklch(0.951 0.016 82.8); /* #f4eee3 */
+  --w-bone-200: oklch(0.847 0.028 85.7); /* #d5ccb9 */
+
+  /* slate-blue panel scale */
+  --w-slate-700: oklch(0.375 0.027 265.4); /* #3a4150 */
+  --w-slate-900: oklch(0.302 0.029 256.8); /* #252f3d */
+  --w-slate-950: oklch(0.263 0.023 259.3); /* #1e2530 */
+
+  /* signal hues */
+  --w-blue: oklch(0.683 0.087 245.2); /* #6a9fcc */
+  --w-blue-deep: oklch(0.528 0.092 248.6); /* #3d6f9e */
+
+  --w-ochre: oklch(0.68 0.111 62.3); /* #c9884b */
+  --w-ochre-deep: oklch(0.582 0.109 60.4); /* #a96a30 */
+
+  --w-wheat: oklch(0.775 0.084 78.8); /* #d3b078 */
+  --w-wheat-deep: oklch(0.571 0.077 81.2); /* #8f7340 */
+
+  --w-sage: oklch(0.705 0.057 131.9); /* #93a883 */
+  --w-sage-deep: oklch(0.528 0.059 134.2); /* #5d7350 */
+
+}
+
+/* ------------------------------------------------------------------ */
+/* Tier 2 · semantic — 双主题                                          */
+/* ------------------------------------------------------------------ */
+
+/* dark（默认）—— IDE 感：底更暗，面板实心，hairline 看得见 */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.145 0.004 67.5); /* #0b0a08 */
+  --foreground: oklch(0.911 0.013 82.4); /* #e6e1d8 */
+  --panel: var(--w-slate-950);
+  --panel-soft: oklch(0.205 0.014 255); /* #13181e */
+  --panel-foreground: var(--foreground);
+  --card: var(--panel);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.225 0.016 255); /* #171c23 */
+  --popover-foreground: var(--foreground);
+  --line: oklch(0.31 0.012 252); /* #2c3136 */
+  --line-strong: oklch(0.395 0.016 252); /* #40474f */
+  --border: var(--line);
+  --muted: var(--panel-soft);
+  --muted-foreground: oklch(0.62 0.014 82); /* #8a857d */
+  --primary: var(--w-blue);
+  --primary-foreground: oklch(0.16 0.012 248.5); /* #090e12 */
+  --accent: var(--primary);
+  --accent-foreground: var(--primary-foreground);
+  --secondary: var(--panel-soft);
+  --secondary-foreground: var(--foreground);
+  --destructive: var(--w-ochre-deep);
+  --destructive-foreground: var(--w-bone-100);
+  --input: var(--line-strong);
+  --ring: var(--w-blue);
+  --ochre: var(--w-ochre);
+  --wheat: var(--w-wheat);
+  --sage: var(--w-sage);
+
+  /* 蓝图网格：降噪到「能感觉到但看不见」的密度 */
+  --grid-minor: color-mix(in oklab, var(--foreground) 3%, transparent);
+  --grid-major: color-mix(in oklab, var(--foreground) 6%, transparent);
+  --grid-dot: color-mix(in oklab, var(--w-blue) 22%, transparent);
+  --grid-fade: radial-gradient(ellipse 120% 80% at 50% 0%, black 0%, black 28%, transparent 72%);
+}
+
+/* light：parchment（终端的「纸」模式） */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --background: var(--w-bone-100);
+  --foreground: var(--w-ink-700);
+  --panel: var(--w-bone-50);
+  --panel-soft: oklch(0.962 0.014 88); /* #f6f2e8 */
+  --panel-foreground: var(--foreground);
+  --card: var(--panel);
+  --card-foreground: var(--foreground);
+  --popover: var(--panel);
+  --popover-foreground: var(--foreground);
+  --line: oklch(0.8 0.02 85.7); /* #c3bdb0 */
+  --line-strong: oklch(0.68 0.025 84.6); /* #9f9787 */
+  --border: var(--line);
+  --muted: var(--w-bone-200);
+  --muted-foreground: var(--w-ink-500);
+  --primary: var(--w-blue-deep);
+  --primary-foreground: var(--w-bone-50);
+  --accent: var(--primary);
+  --accent-foreground: var(--primary-foreground);
+  --secondary: var(--w-bone-200);
+  --secondary-foreground: var(--foreground);
+  --destructive: var(--w-ochre-deep);
+  --destructive-foreground: var(--w-bone-50);
+  --input: var(--line-strong);
+  --ring: var(--w-blue-deep);
+  --ochre: var(--w-ochre-deep);
+  --wheat: var(--w-wheat-deep);
+  --sage: var(--w-sage-deep);
+
+  --grid-minor: color-mix(in oklab, var(--foreground) 4%, transparent);
+  --grid-major: color-mix(in oklab, var(--foreground) 8%, transparent);
+  --grid-dot: color-mix(in oklab, var(--w-blue-deep) 20%, transparent);
+}
+
+/* ------------------------------------------------------------------ */
+/* Tier 3 · component — 组件层                                         */
+/* ------------------------------------------------------------------ */
+:root {
+  /* button */
+  --w-c-button-bg: var(--panel);
+  --w-c-button-fg: var(--foreground);
+  --w-c-button-line: var(--line-strong);
+  --w-c-button-bg-hover: var(--panel-soft);
+  --w-c-button-primary-bg: var(--primary);
+  --w-c-button-primary-fg: var(--primary-foreground);
+
+  /* input */
+  --w-c-input-bg: var(--background);
+  --w-c-input-line: var(--line-strong);
+  --w-c-input-line-focus: var(--ring);
+
+  /* badge */
+  --w-c-badge-bg: var(--panel-soft);
+  --w-c-badge-fg: var(--muted-foreground);
+  --w-c-badge-line: var(--line);
+
+  /* code */
+  --w-c-code-bg: oklch(0.185 0.012 252); /* #0f1318 */
+  --w-c-code-fg: var(--w-wheat);
+
+  /* chrome */
+  --w-c-chrome: oklch(0.205 0.014 255); /* #13181e */
+  --w-c-chrome-fg: var(--muted-foreground);
+
+  --w-c-prompt: var(--sage);
+
+  --w-c-caret: var(--primary);
+
+  --w-c-selection: color-mix(in oklab, var(--primary) 28%, transparent);
+  --w-hairline: 0 0 0 1px var(--line);
+  --w-hairline-strong: 0 0 0 1px var(--line-strong);
+
+  /* radius — IDE 风：更方 */
+  --w-radius: 3px;
+  --w-radius-sm: 2px;
+}

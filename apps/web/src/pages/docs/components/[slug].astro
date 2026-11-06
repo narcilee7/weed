@@ -1,0 +1,387 @@
+---
+import Docs from "../../../layouts/Docs.astro";
+import { CodeBlock } from "@weed-ui/code-block";
+import DemoHost from "../../../demos/index";
+import { COMPONENTS } from "../../../data/components";
+import "../../../styles/global.css";
+
+export function getStaticPaths() {
+  return COMPONENTS.map((c) => ({ params: { slug: c.slug } }));
+}
+
+const { slug } = Astro.params;
+const component = COMPONENTS.find((c) => c.slug === slug)!;
+
+const sources = import.meta.glob<string>(
+  "../../../../../../registry/ui/*.tsx",
+  { query: "?raw", import: "default", eager: true }
+);
+const source = sources[`../../../../../../registry/ui/${slug}.tsx`];
+
+const related = COMPONENTS.filter(
+  (c) => c.slug !== component.slug && c.category === component.category
+).slice(0, 3);
+
+const installCmd = `npx shadcn add https://weedui.dev/r/${component.slug}.json`;
+---
+
+<Docs title={`${component.title} · weed docs`} description={component.summary}>
+  <!-- header -->
+  <header class="doc-head">
+    <p class="w-eyebrow">
+      components · {component.category.toLowerCase()}
+      {component.signature && <span class="sig">★ signature</span>}
+    </p>
+    <h1 class="doc-title">{component.title}</h1>
+    <p class="doc-summary">{component.summary}</p>
+    <p class="doc-meta w-mono">
+      <span class:list={["status", component.status]}>{component.status}</span>
+      {
+        component.alsoCalled && (
+          <span class="also">also called: {component.alsoCalled.join(" · ")}</span>
+        )
+      }
+    </p>
+  </header>
+
+  <!-- install -->
+  <section class="doc-section">
+    <CodeBlock client:visible language="BASH" filename="terminal" prompt code={installCmd} />
+  </section>
+
+  <!-- demo: both modes -->
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">demo</p>
+    <div class="demo-pair">
+      <div class="demo-pane" data-theme="dark">
+        <p class="demo-pane__label">dark</p>
+        <div class="demo-pane__body">
+          <DemoHost client:visible slug={component.slug} />
+        </div>
+      </div>
+      <div class="demo-pane" data-theme="light">
+        <p class="demo-pane__label">light</p>
+        <div class="demo-pane__body">
+          <DemoHost client:visible slug={component.slug} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- when to use -->
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">when to use</p>
+    <ul class="doc-list">
+      {component.whenToUse.map((w) => <li>{w}</li>)}
+    </ul>
+    {
+      component.insteadOf && (
+        <>
+          <p class="w-eyebrow sec-label sec-label--spaced">instead of</p>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>别用</th>
+                <th>改用</th>
+              </tr>
+            </thead>
+            <tbody>
+              {component.insteadOf.map(([wrong, right]) => (
+                <tr>
+                  <td class="wrong">{wrong}</td>
+                  <td class="right">{right}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )
+    }
+  </section>
+
+  <!-- anatomy -->
+  {
+    component.anatomy.length > 1 && (
+      <section class="doc-section">
+        <p class="w-eyebrow sec-label">anatomy</p>
+        <div class="chip-row">
+          {component.anatomy.map((a) => (
+            <code class="doc-chip">{a}</code>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- variants -->
+  {
+    component.variants && (
+      <section class="doc-section">
+        <p class="w-eyebrow sec-label">variants</p>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>variant</th>
+              <th>用途</th>
+            </tr>
+          </thead>
+          <tbody>
+            {component.variants.map((v) => (
+              <tr>
+                <td class="name">{v.name}</td>
+                <td>{v.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    )
+  }
+
+  <!-- api -->
+  {
+    component.api && (
+      <section class="doc-section">
+        <p class="w-eyebrow sec-label">api</p>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>prop</th>
+              <th>type</th>
+              <th>default</th>
+            </tr>
+          </thead>
+          <tbody>
+            {component.api.map((a) => (
+              <tr>
+                <td class="name">{a.prop}</td>
+                <td class="type">{a.type}</td>
+                <td class="muted">{a.default ?? "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    )
+  }
+
+  <!-- source -->
+  <section class="doc-section">
+    <p class="w-eyebrow sec-label">source</p>
+    <CodeBlock
+      client:visible
+      language="TSX"
+      filename={`components/weed-ui/${component.slug}.tsx`}
+      code={source}
+    />
+    <p class="doc-note">
+      装进你的仓库之后，这就是你的代码——改名、拆分、魔改，随你。
+      {
+        component.npmDeps && (
+          <span class="deps">
+            {" "}
+            安装时自动加入：<code class="doc-chip">{component.npmDeps.join(", ")}</code>
+          </span>
+        )
+      }
+    </p>
+  </section>
+
+  <!-- related -->
+  {
+    related.length > 0 && (
+      <section class="doc-section">
+        <p class="w-eyebrow sec-label">related</p>
+        <div class="chip-row">
+          {related.map((r) => (
+            <a class="doc-chip doc-chip--link" href={`/docs/components/${r.slug}`}>
+              {r.title}
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</Docs>
+
+<style>
+  .doc-head {
+    margin-bottom: 32px;
+  }
+  .doc-title {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-2xl);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 10px 0 8px;
+  }
+  .doc-summary {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-base);
+    color: var(--muted-foreground);
+    margin: 0 0 12px;
+    max-width: 52ch;
+    line-height: var(--w-leading-prose);
+  }
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+  }
+  .status {
+    padding: 1px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .status.stable {
+    color: var(--sage);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sage) 45%, transparent);
+  }
+  .status.beta {
+    color: var(--wheat);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--wheat) 45%, transparent);
+  }
+  .sig {
+    color: var(--wheat);
+    margin-left: 6px;
+  }
+  .doc-section {
+    margin-bottom: 40px;
+  }
+  .sec-label {
+    margin-bottom: 12px;
+  }
+  .sec-label--spaced {
+    margin-top: 24px;
+  }
+  .demo-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .demo-pane {
+    border-radius: var(--w-radius);
+    background: var(--background);
+    box-shadow: inset 0 0 0 1px var(--line);
+    overflow: hidden;
+  }
+  .demo-pane__label {
+    margin: 0;
+    padding: 5px 10px;
+    font-family: var(--w-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted-foreground);
+    background: var(--w-c-chrome);
+    border-bottom: 1px solid var(--line);
+  }
+  .demo-pane__body {
+    padding: 20px 18px;
+    min-height: 96px;
+    display: flex;
+    align-items: center;
+  }
+  .doc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-sm);
+    line-height: var(--w-leading-prose);
+    max-width: 62ch;
+  }
+  .doc-list li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 8px;
+  }
+  .doc-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+  }
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-sm);
+  }
+  .doc-table th {
+    text-align: left;
+    font-size: 10.5px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted-foreground);
+    padding: 6px 10px;
+    background: var(--panel-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  .doc-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    line-height: var(--w-leading-prose);
+  }
+  .doc-table td.name {
+    color: var(--primary);
+    white-space: nowrap;
+  }
+  .doc-table td.type {
+    color: var(--wheat);
+  }
+  .doc-table td.wrong {
+    color: var(--muted-foreground);
+    text-decoration: line-through;
+    text-decoration-color: var(--line-strong);
+  }
+  .doc-table td.right {
+    color: var(--foreground);
+  }
+  .doc-table td.muted {
+    color: var(--muted-foreground);
+  }
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .doc-chip {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    padding: 2px 7px;
+    border-radius: 2px;
+    background: var(--panel-soft);
+    color: var(--foreground);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .doc-chip--link {
+    color: var(--primary);
+  }
+  .doc-chip--link:hover {
+    background: var(--panel);
+  }
+  .doc-note {
+    font-family: var(--w-font-mono);
+    font-size: var(--w-text-xs);
+    color: var(--muted-foreground);
+    margin-top: 10px;
+    line-height: var(--w-leading-prose);
+    max-width: 60ch;
+  }
+  .deps {
+    display: inline-block;
+    margin-top: 6px;
+  }
+  @media (max-width: 720px) {
+    .demo-pair {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

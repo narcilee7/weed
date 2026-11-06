@@ -1,0 +1,233 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "weed-ui",
+  "homepage": "https://weedui.dev",
+  "items": [
+    {
+      "name": "theme",
+      "type": "registry:theme",
+      "title": "weed theme",
+      "description": "weed design language: OKLCH tokens (dark/light), terminal / IDE type stack, blueprint grid, 1px inset hairlines. Import the css files into your global stylesheet.",
+      "files": [
+        {
+          "path": "packages/tokens/src/tokens.css",
+          "target": "styles/weed-ui/tokens.css",
+          "type": "registry:theme"
+        },
+        {
+          "path": "packages/tokens/src/fonts.css",
+          "target": "styles/weed-ui/fonts.css",
+          "type": "registry:theme"
+        },
+        {
+          "path": "packages/tokens/src/blueprint.css",
+          "target": "styles/weed-ui/blueprint.css",
+          "type": "registry:theme"
+        },
+        {
+          "path": "packages/tokens/src/tailwind.css",
+          "target": "styles/weed-ui/tailwind.css",
+          "type": "registry:theme"
+        }
+      ]
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "cn() helper",
+      "description": "clsx + tailwind-merge.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/lib/utils.ts",
+          "target": "lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/button.tsx",
+          "target": "components/weed-ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/input.tsx",
+          "target": "components/weed-ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/card.tsx",
+          "target": "components/weed-ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/badge.tsx",
+          "target": "components/weed-ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-tabs"
+      ],
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/tabs.tsx",
+          "target": "components/weed-ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/table.tsx",
+          "target": "components/weed-ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/dialog.tsx",
+          "target": "components/weed-ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-tooltip"
+      ],
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/tooltip.tsx",
+          "target": "components/weed-ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "code-block",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/code-block.tsx",
+          "target": "components/weed-ui/code-block.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "theme-toggle",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/theme-toggle.tsx",
+          "target": "components/weed-ui/theme-toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "blueprint-grid",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "theme",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/blueprint-grid.tsx",
+          "target": "components/weed-ui/blueprint-grid.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}
