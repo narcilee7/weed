@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "weed-ui",
-  "homepage": "https://weedui.dev",
+  "homepage": "https://narcilee7.github.io/weed",
   "items": [
     {
       "name": "theme",

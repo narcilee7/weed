@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://weedui.dev/sitemap-index.xml

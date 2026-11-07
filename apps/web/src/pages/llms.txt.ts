@@ -1,9 +1,10 @@
 import type { APIRoute } from "astro";
 import { COMPONENTS } from "../data/components";
+import { SITE_ROOT, installCmd, registryTemplate } from "../lib/site";
 
 export const prerender = true;
 
-const SITE = "https://weedui.dev";
+const SITE = SITE_ROOT;
 
 /**
  * llms.txt —— 给 agent 的索引。
@@ -50,10 +51,10 @@ export const GET: APIRoute = () => {
     "Install any component by URL (self-contained: theme css + cn() included):"
   );
   out.push("");
-  out.push("    npx shadcn add https://weedui.dev/r/button.json");
+  out.push(`    ${installCmd("button")}`);
   out.push("");
   out.push(
-    'Or add the namespace to components.json ("@weed-ui": "https://weedui.dev/r/{name}.json") and:'
+    `Or add the namespace to components.json ("@weed-ui": "${registryTemplate}") and:`
   );
   out.push("");
   out.push("    npx shadcn add @weed-ui/button");

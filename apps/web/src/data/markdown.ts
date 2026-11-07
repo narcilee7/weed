@@ -1,5 +1,6 @@
 import { COMPONENTS, type ComponentDoc } from "./components";
 import { SEMANTIC_ROWS, TYPE_ROWS, RADIUS } from "./tokens";
+import { SITE_ROOT } from "../lib/site";
 
 /**
  * 站点的纯文本孪生。
@@ -8,7 +9,8 @@ import { SEMANTIC_ROWS, TYPE_ROWS, RADIUS } from "./tokens";
  * 内容由这里生成，和网页版同源——网页上写的和 agent 读到的是同一份事实。
  */
 
-const SITE = "https://weedui.dev";
+/** 站点根（含 base），所有绝对 URL 从这里长出来 */
+const SITE = SITE_ROOT;
 
 const sources = import.meta.glob<string>("../../../../registry/ui/*.tsx", {
   query: "?raw",

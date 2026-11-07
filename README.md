@@ -6,18 +6,18 @@
 终端 / IDE 风的 shadcn/ui registry：像素等宽、暖暗大地色、蓝图网格、1px 内描边。
 以源码复制的方式分发，长进你的代码库。
 
-仓库：[github.com/narcilee7/weed](https://github.com/narcilee7/weed) · 站点：<https://weedui.dev>
+仓库：[github.com/narcilee7/weed](https://github.com/narcilee7/weed) · 站点：<https://narcilee7.github.io/weed/>（域名 `weedui.dev` 上线中）
 
 ## 安装
 
 ```sh
-npx shadcn add https://weedui.dev/r/button.json
+npx shadcn add https://narcilee7.github.io/weed/r/button.json
 ```
 
 或者先添加 namespace，再按官方姿势安装：
 
 ```sh
-# components.json → "registries": { "@weed-ui": "https://weedui.dev/r/{name}.json" }
+# components.json → "registries": { "@weed-ui": "https://narcilee7.github.io/weed/r/{name}.json" }
 npx shadcn add @weed-ui/button
 ```
 
@@ -29,7 +29,7 @@ Button · Input · Card · Badge · Tabs · Table · Dialog · Tooltip · CodeBl
 
 **签名组件**：`BlueprintGrid` —— 蓝图网格背景容器（20px 小格 / 100px 双档线 / accent 交叉点 / 径向渐隐）。
 
-Live demo: [weedui.dev/components](https://weedui.dev/components)（上线前本地 `pnpm dev`）。
+Live demo: [narcilee7.github.io/weed/components](https://narcilee7.github.io/weed/components)（本地 `pnpm dev`）。
 
 ## 设计语言
 
@@ -51,6 +51,7 @@ weed/                 pnpm monorepo
 ├── design/           设计原则 + 决策日志
 ├── packages/tokens/  设计语言单一事实源（tokens.json → CSS / Tailwind preset / tweakcn JSON）
 ├── registry/         组件源码 + catalog.json（组件目录）+ registry.json（shadcn registry 格式）
+├── site.json         站点身份单一事实源（origin + base），全站 URL 从这里推导
 └── apps/web/src/     文档内容（docs 页面 + changelog 集合 + 组件目录）
 ```
 
@@ -62,6 +63,23 @@ pnpm tokens:build     # 重新生成 token 产物
 pnpm tokens:check     # 检查 token 产物是否过期（CI 用）
 pnpm registry:build   # 重建 registry JSON → apps/web/public/r/
 ```
+
+## 部署
+
+站点部署在 GitHub Pages：push 到 `master`（或 `feat/init`）→ `.github/workflows/pages.yml`
+构建并发布到 `https://narcilee7.github.io/weed/`。
+
+**换域名只改一处**：仓库根的 `site.json`。
+
+```json
+{
+  "url": "https://narcilee7.github.io",
+  "base": "/weed"
+}
+```
+
+canonical、sitemap、安装命令、registry 元数据、agent 索引全部从这里推导。
+域名 `weedui.dev` 上线后改成 `"url": "https://weedui.dev"`、`"base": "/"`，重新构建即可。
 
 ## 站点结构
 

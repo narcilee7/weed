@@ -43,8 +43,8 @@
         "default": "100"
       }
     ],
-    "docs": "https://weedui.dev/docs/components/tooltip",
-    "markdown": "https://weedui.dev/docs/components/tooltip.md"
+    "docs": "https://narcilee7.github.io/weed/docs/components/tooltip",
+    "markdown": "https://narcilee7.github.io/weed/docs/components/tooltip.md"
   },
   "dependencies": [
     "@radix-ui/react-tooltip"
